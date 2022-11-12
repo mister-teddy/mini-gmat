@@ -1,6 +1,7 @@
 // Import React and ReactDOM
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
+import 'react-spring-bottom-sheet/dist/style.css';
 import './css/app.scss';
 
 import { ResizeObserver } from '@juggle/resize-observer'

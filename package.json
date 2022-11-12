@@ -32,6 +32,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-spring": "^9.5.2",
+    "react-spring-bottom-sheet": "^3.4.1",
     "recoil": "^0.7.3",
     "three": "^0.143.0",
     "zmp-sdk": "^2.18.5-rc.1"
