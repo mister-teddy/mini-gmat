@@ -1,0 +1,41 @@
+@import "./tailwind.scss";
+
+html,
+body,
+#app {
+    overflow: hidden;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.with-scroller {
+    &::-webkit-scrollbar {
+        display: initial;
+    }
+}
+
+a,
+button,
+input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ellipsis-all {
+    * {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &:active {
+        * {
+            overflow: visible;
+            white-space: normal;
+            text-overflow: clip;
+        }
+    }
+}

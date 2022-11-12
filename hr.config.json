@@ -1,0 +1,10 @@
+{
+    "listCSS": [],
+    "listJS": [
+        {
+            "src": "/src/app.ts",
+            "type": "module",
+            "async": true
+        }
+    ]
+}

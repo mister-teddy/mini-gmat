@@ -1,0 +1,16 @@
+{
+  "app": {
+    "title": "GMAT Practice Questions",
+    "orientation": "auto",
+    "headerTitle": " ",
+    "headerColor": "",
+    "textColor": "white",
+    "statusBarColor": "#04006C",
+    "leftButton": "back",
+    "selfControlLoading": true
+  },
+  "debug": false,
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": []
+}

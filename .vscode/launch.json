@@ -1,0 +1,51 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Zalo Mini App",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://local.mini.zalo.me:3000",
+            "webRoot": "${workspaceFolder}",
+            "runtimeArgs": [
+                "--window-size=375,812",
+                "--window-position=1065,25",
+                "--app=http://local.mini.zalo.me:3000",
+                "--remote-debugger-handles"
+            ]
+        },
+        {
+            "name": "Launch Editor",
+            "request": "launch",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}",
+            "runtimeArgs": [
+                "--window-size=375,812",
+                "--window-position=1065,25",
+                "--app=http://local.mini.zalo.me:3000/#/editor",
+            ]
+        },
+        {
+            "name": "Leaderboard",
+            "request": "launch",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}",
+            "runtimeArgs": [
+                "--window-size=375,812",
+                "--window-position=1065,25",
+                "--app=http://local.mini.zalo.me:3000/#/leaderboard",
+            ]
+        },
+        {
+            "name": "Mock play room",
+            "request": "launch",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}",
+            "runtimeArgs": [
+                "--window-size=375,812",
+                "--window-position=1065,25",
+                "--app=http://local.mini.zalo.me:3000/#/mock",
+            ]
+        }
+    ]
+}
