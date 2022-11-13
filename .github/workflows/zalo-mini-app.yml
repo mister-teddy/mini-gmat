@@ -35,5 +35,5 @@ jobs:
       id: step_two
       run: |
         echo $ZMP_TOKEN
-    - run: npm install -g zmp-cli
-    - run: npm run deploy:auto
+    - run: npm install
+    - run: npx zmp-developer-token deploy ${{ secrets.MINI_APP_ID }}
