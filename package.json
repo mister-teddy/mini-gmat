@@ -17,7 +17,7 @@
   "scripts": {
     "start": "zmp start --silent --no-frame",
     "deploy:dev": "zmp deploy --mode=development",
-    "deploy:auto": "zmp-developer-token login && printf \"\\033[B\n`git log -1 --pretty=%B`\" | zmp deploy",
+    "deploy:auto": "printf \"\\033[B\n`git log -1 --pretty=%B`\" | zmp deploy",
     "deploy": "zmp deploy",
     "login": "zmp login"
   },
@@ -50,6 +50,6 @@
     "sass": "^1.43.4",
     "tailwindcss": "^3.0.23",
     "vite": "^2.6.13",
-    "zmp-developer-token": "^2.2.0"
+    "zmp-developer-token": "^2.3.0"
   }
 }

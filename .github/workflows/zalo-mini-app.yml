@@ -9,22 +9,31 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  actions: write
+  repository-projects: write
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 18.x
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18.x
         cache: 'npm'
-    - run: npm install
+    - run: npx zmp-developer-token login ${{ secrets.ZALO_APP_ID }} ${{ secrets.ZALO_APP_SECRET }} ${{ secrets.ZALO_REFRESH_TOKEN }} >> $GITHUB_ENV
+    - uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'ZALO_REFRESH_TOKEN'
+        value: ${{ env.NEW_REFRESH_TOKEN }}
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+    - name: Use the value
+      id: step_two
+      run: |
+        echo $ZMP_TOKEN
+    - run: npm install -g zmp-cli
     - run: npm run deploy:auto
