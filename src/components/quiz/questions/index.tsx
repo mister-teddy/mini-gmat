@@ -1,6 +1,6 @@
 import { FunctionComponent, useMemo } from "react";
 import { Question } from "../../../models/database";
-import ProblemSolving from "./ps";
+import ProblemSolving from "./problem-solving";
 
 interface QuestionProps {
   question: Question;

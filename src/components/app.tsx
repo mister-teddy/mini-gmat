@@ -2,7 +2,7 @@ import { RecoilRoot, useRecoilValue, useRecoilValueLoadable } from 'recoil'
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from '../pages/index';
-import { darkState } from '../state/theme';
+import { darkState } from '../state/settings';
 import { loggedInState } from '../state/auth';
 import bg from '../static/bg.png';
 import Loading from './loading';
