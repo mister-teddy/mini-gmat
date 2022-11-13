@@ -1,5 +1,4 @@
-import { atom, selector } from "recoil";
-import { getStatus, Status } from "../services/rest";
+import { atom } from "recoil";
 import { getAccessToken, keepScreenOn, login } from "../services/zalo";
 
 export const loggedInState = atom({

@@ -17,6 +17,7 @@
   "scripts": {
     "start": "zmp start --silent --no-frame",
     "deploy:dev": "zmp deploy --mode=development",
+    "deploy:auto": "zmp-developer-token login && printf \"\\033[B\n`git log -1 --pretty=%B`\" | zmp deploy",
     "deploy": "zmp deploy",
     "login": "zmp login"
   },
@@ -35,6 +36,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "recoil": "^0.7.3",
     "three": "^0.143.0",
+    "zmp-cli": "^3.11.3",
     "zmp-sdk": "^2.18.5-rc.1"
   },
   "devDependencies": {
@@ -48,6 +50,6 @@
     "sass": "^1.43.4",
     "tailwindcss": "^3.0.23",
     "vite": "^2.6.13",
-    "zmp-developer-token": "^1.19.0"
+    "zmp-developer-token": "^2.2.0"
   }
 }
