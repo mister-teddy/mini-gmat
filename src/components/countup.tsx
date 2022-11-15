@@ -2,26 +2,15 @@ import React, { useState, useEffect, useMemo } from "react";
 
 const fixedTwo = (x: number) => `${x}`.padStart(2, "0");
 
-function Countdown(props: { timeLeft: number, onTimeout?: () => void, render?: (times: string[]) => React.ReactElement }) {
-  const [timeLeft, setTimeLeft] = useState(props.timeLeft);
+function Countup(props: { onCount: (seconds: number) => void, render?: (times: string[]) => React.ReactElement }) {
+  const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    setTimeLeft(props.timeLeft);
-  }, [props.timeLeft]);
-  useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft(t => Math.max(0, t - 1000));
+      setTimeLeft(t => Math.max(0, t + 1000));
     }, 1000);
     return () => clearInterval(interval);
   }, [])
-
-  useEffect(() => {
-    if (timeLeft === 0) {
-      if (props.onTimeout) {
-        props.onTimeout();
-      }
-    }
-  }, [timeLeft])
 
   const formattedTimeLeft = useMemo(() => {
     const seconds = Math.floor(timeLeft / 1000 % 60)
@@ -41,4 +30,4 @@ function Countdown(props: { timeLeft: number, onTimeout?: () => void, render?: (
   </div>;
 }
 
-export default Countdown;
+export default Countup;

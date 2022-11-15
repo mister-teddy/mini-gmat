@@ -1,14 +1,48 @@
-import { selector } from "recoil";
-import { databaseState } from './database';
-import { Question } from "../models/database";
+import { atom, selector } from "recoil";
+import { Question, QuestionType } from "../models/database";
+import config from "../config";
+import { databaseState } from "./database";
+import { randomNumber } from "../utils/numbers";
 
-export const questionsState = selector<Question[]>({
-  key: "questions",
+export const currentQuestionTypeState = atom<QuestionType | undefined>({
+  key: 'currentQuestionType'
+})
+
+export const answeredQuestionsState = atom<{ [key: string]: number }>({
+  key: 'answeredQuestions',
+  default: {}
+})
+
+export const currentQuestionIdState = selector({
+  key: 'currentQuestionId',
   get: ({ get }) => {
+    const answeredQuestions = get(answeredQuestionsState);
+    const answeredIds = Object.keys(answeredQuestions);
+    const type = get(currentQuestionTypeState)!;
     const db = get(databaseState);
-    return Object.values(db.questions.PS).map(q => ({
-      ...q,
-      type: 'PS'
-    }));
-  },
+    console.log(db[type]);
+    const unAnsweredIds = Object.values(db[type]).filter(id => !answeredIds.includes(id));
+    const randomIndex = randomNumber(0, unAnsweredIds.length - 1);
+    return unAnsweredIds[randomIndex];
+  }
+})
+
+export const currentQuestionState = selector<Question>({
+  key: "currentQuestion",
+  get: async ({ get }) => {
+    const type = get(currentQuestionTypeState);
+    const id = get(currentQuestionIdState);
+    const res = await fetch(`${config.DATABASE_URL}/${id}.json`);
+    const question = await res.json();
+    return {
+      ...question,
+      id,
+      type
+    }
+  }
 });
+
+export const durationState = atom<number>({
+  key: 'duration',
+  default: 0,
+})

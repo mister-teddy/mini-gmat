@@ -9,6 +9,7 @@ import Loading from './loading';
 import { Suspense } from 'react';
 import StudyRoom from '../pages/studyroom';
 import ErrorBoundary from './error-boundary';
+import { MathJaxContext } from 'better-react-mathjax';
 
 const Root = () => {
   useRecoilValueLoadable(loggedInState);
@@ -30,9 +31,11 @@ const Root = () => {
 
 const App = () => {
   return <RecoilRoot>
-    <HashRouter>
-      <Root />
-    </HashRouter>
+    <MathJaxContext>
+      <HashRouter>
+        <Root />
+      </HashRouter>
+    </MathJaxContext>
   </RecoilRoot>
 }
 

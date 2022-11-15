@@ -1,4 +1,5 @@
-import { FunctionComponent, HTMLAttributes, useMemo, useState } from "react";
+import { MathJax } from "better-react-mathjax";
+import { FunctionComponent, HTMLAttributes } from "react";
 
 interface ContentProps extends HTMLAttributes<HTMLElement> {
   content: string
@@ -6,7 +7,9 @@ interface ContentProps extends HTMLAttributes<HTMLElement> {
 
 const Content: FunctionComponent<ContentProps> = ({ content, className, ...props }) => {
 
-  return <div dangerouslySetInnerHTML={{ __html: content }} {...props} />;
+  return <MathJax>
+    <div dangerouslySetInnerHTML={{ __html: content }} {...props} />
+  </MathJax>;
 }
 
 export default Content;

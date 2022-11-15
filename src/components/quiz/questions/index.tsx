@@ -13,7 +13,11 @@ const QuestionComponent: FunctionComponent<QuestionProps> = ({
 }) => {
   const content = useMemo(() => {
     switch (question.type) {
+      case "CR":
+      case "DS":
       case "PS":
+      case "RC":
+      case "SC":
         return <ProblemSolving question={question} onAnswer={onAnswer} />;
       default:
         return <div>Unknown question type!</div>;
