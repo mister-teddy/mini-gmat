@@ -12,6 +12,10 @@ function Countup(props: { onCount: (seconds: number) => void, render?: (times: s
     return () => clearInterval(interval);
   }, [])
 
+  useEffect(() => {
+    props.onCount(timeLeft / 1000);
+  }, [timeLeft])
+
   const formattedTimeLeft = useMemo(() => {
     const seconds = Math.floor(timeLeft / 1000 % 60)
     const minutes = Math.floor(timeLeft / 1000 / 60 % 60)

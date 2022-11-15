@@ -10,6 +10,7 @@ import { Suspense } from 'react';
 import StudyRoom from '../pages/studyroom';
 import ErrorBoundary from './error-boundary';
 import { MathJaxContext } from 'better-react-mathjax';
+import SavedQuestionsPage from '../pages/saved-questions';
 
 const Root = () => {
   useRecoilValueLoadable(loggedInState);
@@ -23,6 +24,7 @@ const Root = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/study" element={<StudyRoom />} />
+          <Route path="/saved" element={<SavedQuestionsPage />} />
         </Routes>
       </Suspense>
     </ErrorBoundary>

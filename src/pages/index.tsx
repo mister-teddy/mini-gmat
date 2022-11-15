@@ -1,21 +1,24 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { AddToCalendar } from '../components/add-to-calendar';
 import Button from '../components/button';
 import { SupportUs } from '../components/support-us';
+import ZaloMiniApp from '../components/zalo-mini-app';
 import { QuestionType } from '../models/database';
 import { databaseState } from '../state/database';
 import { currentQuestionTypeState } from '../state/questions';
 import sdk from '../utils/sdk';
 
-const labels = {
-  RC: 'Reading Comprehension',
-  SC: 'Sentence Correction',
-  CR: 'Critical Reasoning',
-  PS: 'Problem Solving',
-  DS: 'Data Sufficiency'
+export const questionTypesLabel = {
+  RC: '⌛️ Reading Comprehension',
+  SC: <><span className="text-xl absolute -translate-x-2">✍️</span><span className="ml-8"> Sentence Correction</span></>,
+  CR: <><span className="text-xl absolute -translate-x-2">🤔</span><span className="ml-8"> Critical Reasoning</span></>,
+  PS: <><span className="text-xl absolute -translate-x-2">💡</span><span className="ml-8"> Problem Solving</span></>,
+  DS: <><span className="text-xl absolute -translate-x-2">💯</span><span className="ml-8"> Data Sufficiency</span></>
 }
+
+const commingSoon = ['RC']
 
 function AreYouReady() {
   const navigate = useNavigate();
@@ -27,11 +30,14 @@ function AreYouReady() {
       <span>GMAT<br />practice</span>
       <span className='text-secondary text-[48vw] absolute -top-12 rotate-12'>?</span>
     </div>
-    {Object.keys(db).map(questionType => <Button key={questionType} onClick={() => {
+    {Object.keys(db).map(questionType => <Button key={questionType} disabled={commingSoon.includes(questionType)} onClick={() => {
       chooseType(questionType as QuestionType);
       navigate('/study');
-    }} className='w-full font-bold'>{labels[questionType]}</Button>)}
-    <div className="flex space-x-4">
+    }} className={`w-full font-bold whitespace-nowrap !justify-start ${commingSoon.includes(questionType) ? 'flex-col opacity-75 active:bg-transparent' : 'text-lg'}`}>
+      {questionTypesLabel[questionType]}
+      {commingSoon.includes(questionType) && <small className="font-normal">Comming Soon</small>}
+    </Button>)}
+    <div className="flex space-x-4 pb-8">
       <AddToCalendar />
       <Button onClick={() => navigate('/saved')}>✅</Button>
       <SupportUs />
@@ -44,8 +50,9 @@ const HomePage = () => {
     sdk.closeLoading({});
   }, [])
 
-  return <div className='flex flex-col justify-center items-center w-full h-full p-[15%] pt-[25%] space-y-4'>
+  return <div className='flex flex-col justify-center items-center w-full h-full px-[15%] pt-[25%] space-y-4'>
     <AreYouReady />
+    <small className="whitespace-nowrap space-x-2 opacity-75">A product of <ZaloMiniApp className="inline" width={96} /> team</small>
   </div>
 }
 export default HomePage

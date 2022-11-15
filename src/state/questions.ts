@@ -3,14 +3,17 @@ import { Question, QuestionType } from "../models/database";
 import config from "../config";
 import { databaseState } from "./database";
 import { randomNumber } from "../utils/numbers";
+import { nativeStorageEffect } from "./effects";
 
 export const currentQuestionTypeState = atom<QuestionType | undefined>({
-  key: 'currentQuestionType'
+  key: 'currentQuestionType',
+  default: undefined
 })
 
 export const answeredQuestionsState = atom<{ [key: string]: number }>({
   key: 'answeredQuestions',
-  default: {}
+  default: {},
+  effects: [nativeStorageEffect('answeredQuestions')]
 })
 
 export const currentQuestionIdState = selector({
