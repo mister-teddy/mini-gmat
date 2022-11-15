@@ -1,5 +1,5 @@
-import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
-import { answeredQuestionsState, currentQuestionState, currentQuestionTypeState, durationState } from "../state/questions";
+import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useSetRecoilState } from "recoil";
+import { answeredQuestionsState, currentQuestionState, currentQuestionTypeState, durationState, manualQuestionIdState } from "../state/questions";
 import Question from "../components/quiz/questions";
 import { useEffect, useTransition } from "react";
 import Countup from "../components/countup";
@@ -32,6 +32,7 @@ function Finished() {
 function StudyRoom() {
   const currentQuestion = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(currentQuestionState);
   const setAnsweredQuestions = useSetRecoilState(answeredQuestionsState);
+  const clearManualId = useResetRecoilState(manualQuestionIdState);
   const getInfo = useGetRecoilValueInfo_UNSTABLE();
   const [loading, startTransition] = useTransition();
 
@@ -43,6 +44,7 @@ function StudyRoom() {
         const info = getInfo(durationState).loadable
         const timeElapsed = info?.state === 'hasValue' ? info.contents : 0;
         startTransition(() => {
+          clearManualId();
           setAnsweredQuestions(aq => ({
             ...aq,
             [currentQuestion.id]: timeElapsed

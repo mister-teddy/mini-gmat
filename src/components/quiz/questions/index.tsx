@@ -1,6 +1,6 @@
 import { FunctionComponent, useMemo } from "react";
 import { Question } from "../../../models/database";
-import ProblemSolving from "./problem-solving";
+import CommonQuestion from "./common";
 
 interface QuestionProps {
   question: Question;
@@ -18,7 +18,7 @@ const QuestionComponent: FunctionComponent<QuestionProps> = ({
       case "PS":
       case "RC":
       case "SC":
-        return <ProblemSolving question={question} onAnswer={onAnswer} />;
+        return <CommonQuestion question={question} onAnswer={onAnswer} />;
       default:
         return <div>Unknown question type!</div>;
     }

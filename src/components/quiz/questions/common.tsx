@@ -4,12 +4,12 @@ import { Question } from "../../../models/database";
 import Button from "../../button";
 import Content from "../content";
 
-interface ProblemSolvingProps {
+export interface CommonQuestionProps {
   question: Question;
   onAnswer: (answer: number) => void;
 }
 
-const ProblemSolving: FunctionComponent<ProblemSolvingProps> = ({ question, onAnswer }) => {
+const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({ question, onAnswer }) => {
   const { content, answers } = useMemo(() => {
     const lines = question.question.split('<br>').map(line => line.trim());
     const regex = /^([A-Z]\.|[A-Z]:|\(?[A-Z]\))\s*/i;
@@ -22,10 +22,17 @@ const ProblemSolving: FunctionComponent<ProblemSolvingProps> = ({ question, onAn
       }
     })
     return {
-      answers: answers.map(line => line.replace(regex, '')),
+      answers: question.type === 'DS' ? [
+        'Statement <span style="color: red">(1) ALONE</span> is sufficient but statement (2) ALONE is not sufficient.',
+        'Statement <span style="color: red">(2) ALONE</span> is sufficient but statement (1) ALONE is not sufficient.',
+        '<span style="color: red">BOTH</span> statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.',
+        '<span style="color: red">EACH</span> statement ALONE is sufficient.',
+        'Statements (1) and (2) <span style="color: red">TOGETHER</span> are <span style="color: red">not</span> sufficient. ',
+      ] : answers.map(line => line.replace(regex, '')),
       content: nonAnswers.join('<br>')
     }
   }, [question])
+
   const [selected, setSelected] = useState(-1);
   useEffect(() => {
     setTimeout(() => {
@@ -41,9 +48,9 @@ const ProblemSolving: FunctionComponent<ProblemSolvingProps> = ({ question, onAn
       <h1 className="my-8 flex">
         <Content content={content} />
       </h1>
-      <div className="flex-none w-full grid grid-cols-2 gap-4">
-        {answers.map((answer, i, items) => <Button key={i} className={`px-4 ${items.length % 2 === 1 && i === items.length - 1 ? 'col-span-2' : ''}`} onClick={() => setSelected(i)}>
-          <Content content={answer} />
+      <div className={`flex-none w-full grid ${question.type === 'DS' ? 'grid-cols-5' : 'grid-cols-2'} gap-4`}>
+        {answers.map((answer, i, items) => <Button key={i} className={`px-4 ${question.type !== 'DS' && items.length % 2 === 1 && i === items.length - 1 ? 'col-span-2' : ''}`} onClick={() => setSelected(i)}>
+          {question.type === 'DS' ? String.fromCharCode(65 + i) : <Content content={answer} />}
         </Button>)}
       </div>
     </div>
@@ -55,11 +62,11 @@ const ProblemSolving: FunctionComponent<ProblemSolvingProps> = ({ question, onAn
       </div>)}
       <div className="w-full" style={{ height: footerHeight }}></div>
       <div ref={el => setFooterHeight(el ? el.clientHeight : 0)} className="fixed bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2">
-        <p>Your answer: <b>{String.fromCharCode(65 + selected)}. {answers[selected]}</b></p>
+        <p>Your answer: <b>{String.fromCharCode(65 + selected)}. <span dangerouslySetInnerHTML={{ __html: answers[selected] }} /></b></p>
         <Button onClick={() => onAnswer(selected)} className="w-full bg-primary border-none text-white">Next question</Button>
       </div>
     </BottomSheet>
   </>;
 }
 
-export default ProblemSolving;
+export default CommonQuestion;

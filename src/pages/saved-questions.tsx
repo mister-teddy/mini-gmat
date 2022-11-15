@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Suspense, useMemo, useState } from "react";
 import Loading from "../components/loading";
-import { useRecoilValue } from "recoil";
-import { answeredQuestionsState, currentQuestionTypeState } from "../state/questions";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { answeredQuestionsState, currentQuestionIdState, currentQuestionTypeState, manualQuestionIdState } from "../state/questions";
 import Button from "../components/button";
 import { questionTypesLabel } from ".";
 import { QuestionType } from "../models/database";
@@ -10,8 +10,11 @@ import { databaseState } from "../state/database";
 import Back from "../components/back";
 
 function Podium({ type }: { type: QuestionType }) {
+  const navigate = useNavigate();
   const answeredQuestions = useRecoilValue(answeredQuestionsState);
   const db = useRecoilValue(databaseState);
+  const setCurrentType = useSetRecoilState(currentQuestionTypeState);
+  const setCurrentId = useSetRecoilState(manualQuestionIdState);
 
   const questionOfTypes = useMemo(() => Object.keys(answeredQuestions).filter(id => db[type].includes(id)), [answeredQuestionsState, db, type]);
 
@@ -20,6 +23,11 @@ function Podium({ type }: { type: QuestionType }) {
       <div className="flex-1 w-full space-y-2 overflow-y-auto pb-4">
         {questionOfTypes.length ? questionOfTypes.map((questionId) => (
           <Button
+            onClick={() => {
+              setCurrentType(type);
+              setCurrentId(questionId);
+              navigate('/study')
+            }}
             key={questionId}
             className={`py-2 px-4 w-full border-none first:mt-4 last:mb-4`}
           >
@@ -37,7 +45,6 @@ function Podium({ type }: { type: QuestionType }) {
 }
 
 function SavedQuestionsPage() {
-  const navigate = useNavigate();
   const currentQuestionType = useRecoilValue(currentQuestionTypeState);
   const [type, setType] = useState<QuestionType>(currentQuestionType ?? 'DS');
 

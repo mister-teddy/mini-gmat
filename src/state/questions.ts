@@ -16,9 +16,18 @@ export const answeredQuestionsState = atom<{ [key: string]: number }>({
   effects: [nativeStorageEffect('answeredQuestions')]
 })
 
+export const manualQuestionIdState = atom({
+  key: 'manualQuestionId',
+  default: ''
+})
+
 export const currentQuestionIdState = selector({
   key: 'currentQuestionId',
   get: ({ get }) => {
+    const manualId = get(manualQuestionIdState);
+    if (manualId) {
+      return manualId;
+    }
     const answeredQuestions = get(answeredQuestionsState);
     const answeredIds = Object.keys(answeredQuestions);
     const type = get(currentQuestionTypeState)!;
