@@ -60,7 +60,7 @@ const HomePage = () => {
 
   return <div className='flex flex-col justify-center items-center w-full h-full px-[15%] pt-[25%] space-y-4'>
     <AreYouReady />
-    <small className="whitespace-nowrap space-x-2 opacity-75">A product of <ZaloMiniApp className="inline" width={96} /> team</small>
+    <small className="whitespace-nowrap space-x-2 opacity-75 pb-2">A product of <ZaloMiniApp className="inline" width={96} /> team</small>
   </div>
 }
 export default HomePage
