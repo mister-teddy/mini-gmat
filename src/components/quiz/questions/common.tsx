@@ -48,15 +48,15 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({ question, onAn
       <h1 className="my-8 flex">
         <Content content={content} />
       </h1>
-      <div className={`flex-none w-full grid ${question.type === 'DS' ? 'grid-cols-5' : 'grid-cols-2'} gap-4`}>
-        {answers.map((answer, i, items) => <Button key={i} className={`px-4 ${question.type !== 'DS' && items.length % 2 === 1 && i === items.length - 1 ? 'col-span-2' : ''}`} onClick={() => setSelected(i)}>
+      <div className={`flex-none w-full grid ${question.type === 'DS' ? 'grid-cols-5' : question.type === 'SC' ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}>
+        {answers.map((answer, i, items) => <Button key={i} className={`px-4 ${question.type !== 'DS' && question.type !== 'SC' && items.length % 2 === 1 && i === items.length - 1 ? 'col-span-2' : ''}`} onClick={() => setSelected(i)}>
           {question.type === 'DS' ? String.fromCharCode(65 + i) : <Content content={answer} />}
         </Button>)}
       </div>
     </div>
     <BottomSheet open={selected > -1} onDismiss={() => setSelected(-1)} title="Explanations">
       <h1 ref={titleRef} className="text-center font-bold">Explanations</h1>
-      {question.explainations.map((ex, i) => <div className={`${i === 0 ? 'bg-yellow-100' : ''} m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}>
+      {question.explainations.map((ex, i) => <div key={i} className={`${i === 0 ? 'bg-yellow-100' : ''} m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}>
         {i === 0 && <b>🌟 Suggested answer </b>}
         <Content key={i} content={ex} />
       </div>)}

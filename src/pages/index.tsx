@@ -1,13 +1,12 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValueLoadable, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { AddToCalendar } from '../components/add-to-calendar';
 import Button from '../components/button';
 import { SupportUs } from '../components/support-us';
 import ZaloMiniApp from '../components/zalo-mini-app';
 import { QuestionType } from '../models/database';
-import { databaseState } from '../state/database';
-import { currentQuestionTypeState, manualQuestionIdState } from '../state/questions';
+import { currentQuestionState, currentQuestionTypeState, manualQuestionIdState } from '../state/questions';
 import sdk from '../utils/sdk';
 
 export const questionTypesLabel = {
@@ -23,18 +22,25 @@ const commingSoon = ['RC']
 function AreYouReady() {
   const navigate = useNavigate();
   const clearManualId = useResetRecoilState(manualQuestionIdState);
-  const db = useRecoilValue(databaseState);
   const chooseType = useSetRecoilState(currentQuestionTypeState);
+  const [ready, setReady] = useState(false);
+  const currentQuestion = useRecoilValueLoadable(currentQuestionState);
+  useEffect(() => {
+    if (currentQuestion.state === 'hasValue' && ready) {
+      navigate('/study');
+    }
+  }, [ready, currentQuestion])
 
   return <>
     <div className='flex-1 relative font-bold text-center leading-[1] text-[12vw] pr-8 -ml-4'>
       <span>GMAT<br />practice</span>
       <span className='text-secondary text-[48vw] absolute -top-12 rotate-12'>?</span>
     </div>
-    {Object.keys(questionTypesLabel).map(questionType => <Button key={questionType} disabled={commingSoon.includes(questionType)} onClick={() => {
+    {Object.keys(questionTypesLabel).map(questionType => <Button key={questionType} disabled={commingSoon.includes(questionType)} onClick={async () => {
       chooseType(questionType as QuestionType);
       clearManualId();
-      navigate('/study');
+      setReady(true)
+      await new Promise(() => { })
     }} className={`w-full font-bold whitespace-nowrap !justify-start ${commingSoon.includes(questionType) ? 'flex-col opacity-75 active:bg-transparent' : 'text-lg'}`}>
       {questionTypesLabel[questionType]}
       {commingSoon.includes(questionType) && <small className="font-normal">Comming Soon</small>}
