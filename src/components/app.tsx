@@ -4,7 +4,6 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import HomePage from '../pages/index';
 import { darkState } from '../state/settings';
 import { loggedInState } from '../state/auth';
-import bg from '../static/bg.png';
 import Loading from './loading';
 import { Suspense } from 'react';
 import StudyRoom from '../pages/studyroom';
@@ -18,7 +17,7 @@ const Root = () => {
   const dark = useRecoilValue(darkState);
   document.documentElement.classList.toggle('dark', dark);
 
-  return <div className={`fixed left-0 right-0 top-0 bottom-0 dark:bg-dark overflow-y-auto bg-cover bg-no-repeat bg-center text-white`} style={{ backgroundImage: `url(${bg})` }}>
+  return <div className={`fixed left-0 right-0 top-0 bottom-0 overflow-y-auto bg-cover bg-no-repeat bg-center text-text bg-background`}>
     <ErrorBoundary>
       <Suspense fallback={<div className='h-full w-full flex justify-center items-center'><Loading visible /></div>}>
         <Routes>

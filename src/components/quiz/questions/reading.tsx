@@ -76,8 +76,8 @@ const ReadingComprehensionQuestion: FunctionComponent<ReadingComprehensionQuesti
         ss[i] = answerIndex;
         return [...ss];
       })} />)}
+      <div className="w-full flex-none" style={{ height: navHeight }}></div>
     </div>
-    <div className="w-full flex-none" style={{ height: navHeight }}></div>
     <div ref={el => setNavHeight(el ? el.clientHeight : 0)} className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur flex justify-center space-x-4 p-4">
       <Button onClick={() => { setReading(true); setHaveRead(true) }} loading={!haveRead} disabled={false}>📖</Button>
       <Button onClick={() => setViewExplaination(true)}>🔑</Button>
@@ -89,13 +89,13 @@ const ReadingComprehensionQuestion: FunctionComponent<ReadingComprehensionQuesti
       </p>
       <div className="w-full" style={{ height: footerHeight }}></div>
       <div ref={el => setFooterHeight(el ? el.clientHeight : 0)} className="fixed bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2">
-        <Button onClick={() => setReading(false)} className="w-full bg-gray-300 border-none">Close</Button>
+        <Button onClick={() => setReading(false)} className="w-full bg-secondary text-secondary-text border-none">Close</Button>
       </div>
     </BottomSheet>
     <Explainations
       visible={viewExplaination}
       onDismiss={() => setViewExplaination(false)}
-      onConfirm={() => onAnswer(selected)}
+      onConfirm={async () => onAnswer(selected)}
       yourAnswer={`${selected.map(getABCD).join(', ')}`}
       explainations={question.explainations}
     />

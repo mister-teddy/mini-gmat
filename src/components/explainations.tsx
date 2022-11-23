@@ -3,7 +3,7 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 import Button from "./button";
 import Content from "./quiz/content";
 
-export const Explainations: FC<{ visible: boolean, onDismiss: () => void, onConfirm: () => void, yourAnswer: string, explainations: string[] }> = ({ visible, onDismiss, onConfirm, yourAnswer, explainations }) => {
+export const Explainations: FC<{ visible: boolean, onDismiss: () => void, onConfirm: () => Promise<void>, yourAnswer: string, explainations: string[] }> = ({ visible, onDismiss, onConfirm, yourAnswer, explainations }) => {
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const [footerHeight, setFooterHeight] = useState(0);
 
@@ -17,7 +17,7 @@ export const Explainations: FC<{ visible: boolean, onDismiss: () => void, onConf
       <div className="w-full" style={{ height: footerHeight }}></div>
       <div ref={el => setFooterHeight(el ? el.clientHeight : 0)} className="fixed bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2">
         <Content content={`Your answer: <b>${yourAnswer}</b>`} />
-        <Button onClick={onConfirm} className="w-full bg-primary border-none text-white">Next question</Button>
+        <Button onClick={onConfirm} className="w-full bg-primary text-primary-text border-none text-text">Next question</Button>
       </div>
     </BottomSheet>
   );

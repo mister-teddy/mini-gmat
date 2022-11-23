@@ -8,6 +8,24 @@ body,
     -webkit-overflow-scrolling: touch;
 }
 
+:root {
+  --background: white;
+  --text: black;
+  --primary: black;
+  --primary-text: white;
+  --secondary: gray;
+  --secondary-text: white;
+}
+
+.dark {
+  --background: #121415;
+  --text: white;
+  --primary: #121415;
+  --primary-text: white;
+  --secondary: #025DE5;
+  --secondary-text: white;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

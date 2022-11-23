@@ -45,7 +45,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({ question, onAn
     <Explainations
       visible={selected > -1}
       onDismiss={() => setSelected(-1)}
-      onConfirm={() => onAnswer(selected)}
+      onConfirm={async () => onAnswer(selected)}
       yourAnswer={`${getABCD(selected)}. ${extendedAnswers[selected]}`}
       explainations={question.explainations}
     />

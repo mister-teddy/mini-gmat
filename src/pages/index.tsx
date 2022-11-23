@@ -36,9 +36,9 @@ function AreYouReady() {
     const params = new URLSearchParams(location.search);
     const questionId = params.get('questionId');
     if (questionId) {
-      console.log(questionId);
       setManualId(questionId);
       setReady(true);
+      window.history.pushState({}, document.title, window.location.pathname);
     }
   }, [])
 

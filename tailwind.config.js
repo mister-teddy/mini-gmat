@@ -4,8 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#04006C',
-        secondary: '#38D7F4'
+        background: `var(--background)`,
+        text: `var(--text)`,
+        primary: `var(--primary)`,
+        'primary-text': `var(--primary-text)`,
+        secondary: `var(--secondary)`,
+        'secondary-text': `var(--secondary-text)`,
       },
     },
     fontSize: {

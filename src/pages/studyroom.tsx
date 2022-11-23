@@ -1,7 +1,7 @@
 import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useSetRecoilState } from "recoil";
 import { answeredQuestionsState, currentQuestionState, currentQuestionTypeState, durationState, manualQuestionIdState } from "../state/questions";
 import Question from "../components/quiz/questions";
-import { useEffect, useTransition } from "react";
+import { Suspense, useEffect, useTransition } from "react";
 import Countup from "../components/countup";
 import { useConfetti } from "../utils/confetti";
 import ErrorBoundary from "../components/error-boundary";
@@ -21,7 +21,9 @@ function Header() {
         <Countup onCount={setDuration} render={([, , minute, second]) => <span>{minute}:{second}</span>} />
       </div>
       <div>
-        <ShareButton />
+        <Suspense>
+          <ShareButton />
+        </Suspense>
       </div>
     </div>
   </div>;

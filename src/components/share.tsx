@@ -9,8 +9,8 @@ export const ShareButton: FC = () => {
   const type = useRecoilValue(currentQuestionTypeState);
   const shareDescription = useMemo(() => {
     const div = document.createElement('div');
-    div.innerHTML = currentQuestion.question;
-    return `${div.innerText.substr(0, 200)}...`;
+    div.innerHTML = currentQuestion.question.split('<br>')[0];
+    return div.innerText.length > 200 ? `${div.innerText.substr(0, 200)}...` : div.innerText;
   }, [currentQuestion]);
   const user = useRecoilValue(userState);
   const share = () => {
