@@ -8,6 +8,10 @@ body,
     -webkit-overflow-scrolling: touch;
 }
 
+[data-rsbs-scroll], .text-selectable {
+  user-select: auto;
+}
+
 :root {
   --background: white;
   --text: black;

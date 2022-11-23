@@ -8,7 +8,7 @@ interface ContentProps extends HTMLAttributes<HTMLElement> {
 const Content: FunctionComponent<ContentProps> = ({ content, className, ...props }) => {
 
   return <MathJax>
-    <div dangerouslySetInnerHTML={{ __html: content }} {...props} />
+    <div dangerouslySetInnerHTML={{ __html: content }} className={`text-selectable ${className ?? ''}`} {...props} />
   </MathJax>;
 }
 
