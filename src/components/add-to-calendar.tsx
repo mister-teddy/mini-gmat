@@ -31,6 +31,6 @@ export const AddToCalendar: FC = () => {
         options: ["Google", "Outlook.com"],
         trigger: "click",
       }, e.currentTarget);
-    }} large className='w-full text-lg'>⏰</Button>
+    }}>⏰</Button>
   );
 }

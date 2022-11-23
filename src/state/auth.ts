@@ -1,5 +1,6 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { getAccessToken, keepScreenOn, login } from "../services/zalo";
+import sdk from "../utils/sdk";
 
 export const loggedInState = atom({
   key: "loggedIn",
@@ -16,6 +17,17 @@ export const loggedInState = atom({
       })
     }
   ]
+})
+
+export const userState = selector({
+  key: "user",
+  get: async ({ get }) => {
+    await get(loggedInState);
+    const user = sdk.getUserInfo({
+      avatarType: 'large'
+    });
+    return user;
+  }
 })
 
 export const pool = {

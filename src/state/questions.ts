@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { Question, QuestionType } from "../models/database";
+import { Database, Question, QuestionType } from "../models/database";
 import config from "../config";
 import { databaseState } from "./database";
 import { randomNumber } from "../utils/numbers";
@@ -32,7 +32,6 @@ export const currentQuestionIdState = selector({
     const answeredIds = Object.keys(answeredQuestions);
     const type = get(currentQuestionTypeState)!;
     const db = get(databaseState);
-    console.log(db[type]);
     const unAnsweredIds = Object.values(db[type]).filter(id => !answeredIds.includes(id));
     const randomIndex = randomNumber(0, unAnsweredIds.length - 1);
     return unAnsweredIds[randomIndex];
@@ -42,10 +41,11 @@ export const currentQuestionIdState = selector({
 export const currentQuestionState = selector<Question>({
   key: "currentQuestion",
   get: async ({ get }) => {
-    const type = get(currentQuestionTypeState);
     const id = get(currentQuestionIdState);
     const res = await fetch(`${config.DATABASE_URL}/${id}.json`);
     const question = await res.json();
+    const db = get(databaseState);
+    const type = Object.keys(db).find(key => db[key as keyof Database].includes(id));
     return {
       ...question,
       id,

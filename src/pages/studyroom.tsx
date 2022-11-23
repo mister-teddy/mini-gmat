@@ -5,20 +5,24 @@ import { useEffect, useTransition } from "react";
 import Countup from "../components/countup";
 import { useConfetti } from "../utils/confetti";
 import ErrorBoundary from "../components/error-boundary";
-import ZaloMiniApp from "../components/zalo-mini-app";
-import { useNavigate } from "react-router";
 import { questionTypesLabel } from ".";
 import Back from "../components/back";
+import { ShareButton } from "../components/share";
 
 function Header() {
   const setDuration = useSetRecoilState(durationState);
   const type = useRecoilValue(currentQuestionTypeState);
-  return <div className="absolute left-0 px-8 py-4 font-bold">
+  return <div className="absolute w-full left-0 px-8 py-4 font-bold">
     <div className="flex space-x-6 items-center text-lg uppercase">{questionTypesLabel[type!]}</div>
-    <div className="flex space-x-2 my-2">
-      <Back />
-      <span className="h-5">⌛</span>
-      <Countup onCount={setDuration} render={([, , minute, second]) => <span>{minute}:{second}</span>} />
+    <div className="flex my-2 justify-between">
+      <div className="space-x-2 ">
+        <Back />
+        <span className="h-5">⌛</span>
+        <Countup onCount={setDuration} render={([, , minute, second]) => <span>{minute}:{second}</span>} />
+      </div>
+      <div>
+        <ShareButton />
+      </div>
     </div>
   </div>;
 }
