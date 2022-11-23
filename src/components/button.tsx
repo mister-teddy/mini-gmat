@@ -29,7 +29,7 @@ const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(({ cl
     className={`border-2 border-secondary rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${large ? `text-xl font-bold` : ''} ${className}`}
     style={{
       background: loading || clickLoading ? angle.to(a => `linear-gradient(${a}deg, var(--primary), var(--secondary))`) : '', ...(style ?? {}),
-      color: loading ? `var(--primary-text)` : undefined
+      color: loading || clickLoading ? `var(--primary-text)` : undefined
     }}
     onClick={e => {
       if (onClick) {
