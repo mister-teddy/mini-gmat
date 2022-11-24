@@ -8,7 +8,7 @@ export const Explainations: FC<{ visible: boolean, onDismiss: () => void, onConf
   const [footerHeight, setFooterHeight] = useState(0);
 
   return (
-    <BottomSheet open={visible} onDismiss={onDismiss} title="Explanations">
+    <BottomSheet expandOnContentDrag open={visible} onDismiss={onDismiss} title="Explanations">
       <h1 ref={titleRef} className="text-center font-bold">Explanations</h1>
       {explainations.map((ex, i) => <div key={i} className={`${i === 0 ? 'bg-yellow-100' : ''} m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}>
         {i === 0 && <b>🌟 Suggested answer </b>}

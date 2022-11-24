@@ -82,7 +82,7 @@ const ReadingComprehensionQuestion: FunctionComponent<ReadingComprehensionQuesti
       <Button onClick={() => { setReading(true); setHaveRead(true) }} loading={!haveRead} disabled={false}>📖</Button>
       <Button onClick={() => setViewExplaination(true)}>🔑</Button>
     </div>
-    <BottomSheet open={reading} onDismiss={() => setReading(false)}>
+    <BottomSheet expandOnContentDrag open={reading} onDismiss={() => setReading(false)}>
       <h1 ref={titleRef} className="text-center font-bold">Reading Passage</h1>
       <p className="m-4 p-4">
         <Content content={readingContent} />

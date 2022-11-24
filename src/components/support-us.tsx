@@ -8,7 +8,7 @@ export const SupportUs: FC = () => {
   return (
     <>
       <Button onClick={() => setVisible(true)}>☕️</Button>
-      <BottomSheet open={visible} onDismiss={() => setVisible(false)} className="text-center">
+      <BottomSheet expandOnContentDrag open={visible} onDismiss={() => setVisible(false)} className="text-center">
         <h1 className="font-bold">Support us 💌</h1>
         <p className="p-4 pt-0 opacity-50 text-sm">
           We send you best wishes for your next examination, send us back a coffee!
