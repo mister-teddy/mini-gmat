@@ -26,7 +26,7 @@ export const SupportUs: FC = () => {
           image: 'https://trungnguyenecoffee.com/wp-content/uploads/2021/07/Hình-App_3006021-Cà-Phê-Sữa.jpg',
           name: 'Trung Nguyen Legend'
         }].map(coffee => <p key={coffee.url} className="px-4 py-2">
-          <Button className="w-full !py-0 space-x-2 text-left active:bg-transparent" onClick={() => sdk.openWebview({
+          <Button className="w-full !py-0 space-x-2 text-left active:bg-white active:text-black" onClick={() => sdk.openWebview({
             url: coffee.url
           })}>
             <img src={coffee.image} className="w-24" />
