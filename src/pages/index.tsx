@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValueLoadable, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { AddToCalendar } from '../components/add-to-calendar';
 import Button from '../components/button';
 import { SupportUs } from '../components/support-us';
 import ZaloMiniApp from '../components/zalo-mini-app';
 import { QuestionType } from '../models/database';
-import { currentQuestionState, currentQuestionTypeState, manualQuestionIdState } from '../state/questions';
+import { currentQuestionState, currentQuestionTypeState, manualQuestionIdState, pickupQuestionIdState } from '../state/questions';
 import sdk from '../utils/sdk';
 
 export const questionTypesLabel = {
@@ -24,6 +24,7 @@ function AreYouReady() {
   const [currentType, chooseType] = useRecoilState(currentQuestionTypeState);
   const [ready, setReady] = useState(false);
   const currentQuestion = useRecoilValueLoadable(currentQuestionState);
+  const pickupQuestionId = useRecoilValue(pickupQuestionIdState);
   useEffect(() => {
     if (currentQuestion.state === 'hasValue' && ready) {
       if (currentType !== currentQuestion.contents.type) {
@@ -47,6 +48,14 @@ function AreYouReady() {
       <span>GMAT<br />practice</span>
       <span className='text-secondary text-[48vw] absolute -top-12 rotate-12'>?</span>
     </div>
+    {!!pickupQuestionId && <Button onClick={async () => {
+      setManualId(pickupQuestionId);
+      setReady(true)
+      await new Promise(() => { })
+    }} className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}>
+      <span className="text-xl absolute -translate-x-2">⏯️</span>
+      <span className="ml-8"> Pickup last question</span>
+    </Button>}
     {Object.keys(questionTypesLabel).map(questionType => <Button key={questionType} onClick={async () => {
       chooseType(questionType as QuestionType);
       clearManualId();

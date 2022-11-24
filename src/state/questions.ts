@@ -21,6 +21,14 @@ export const manualQuestionIdState = atom({
   default: ''
 })
 
+export const pickupQuestionIdState = atom({
+  key: 'pickupQuestionId',
+  default: '',
+  effects: [
+    nativeStorageEffect('pickupQuestionId')
+  ]
+})
+
 export const currentQuestionIdState = selector({
   key: 'currentQuestionId',
   get: ({ get }) => {
@@ -34,7 +42,8 @@ export const currentQuestionIdState = selector({
     const db = get(databaseState);
     const unAnsweredIds = Object.values(db[type]).filter(id => !answeredIds.includes(id));
     const randomIndex = randomNumber(0, unAnsweredIds.length - 1);
-    return unAnsweredIds[randomIndex];
+    const questionId = unAnsweredIds[randomIndex];
+    return questionId;
   }
 })
 

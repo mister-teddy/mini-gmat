@@ -1,5 +1,5 @@
 import { useGetRecoilValueInfo_UNSTABLE, useRecoilValue, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useSetRecoilState } from "recoil";
-import { answeredQuestionsState, currentQuestionState, currentQuestionTypeState, durationState, manualQuestionIdState } from "../state/questions";
+import { answeredQuestionsState, currentQuestionState, currentQuestionTypeState, durationState, manualQuestionIdState, pickupQuestionIdState } from "../state/questions";
 import Question from "../components/quiz/questions";
 import { Suspense, useEffect, useTransition } from "react";
 import Countup from "../components/countup";
@@ -41,6 +41,10 @@ function StudyRoom() {
   const clearManualId = useResetRecoilState(manualQuestionIdState);
   const getInfo = useGetRecoilValueInfo_UNSTABLE();
   const [loading, startTransition] = useTransition();
+  const setPickupQuestionId = useSetRecoilState(pickupQuestionIdState);
+  useEffect(() => {
+    setPickupQuestionId(currentQuestion.id);
+  }, [currentQuestion])
 
   return <div className="w-full h-full">
     <Header key={currentQuestion.id} />
