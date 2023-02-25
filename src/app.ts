@@ -11,6 +11,7 @@ window.ResizeObserver = ResizeObserver;
 import App from './components/app';
 import 'intersection-observer';
 import appConfig from '../app-config.json';
+import './clarity';
 
 if (!(window as any).APP_CONFIG) {
   (window as any).APP_CONFIG = appConfig
