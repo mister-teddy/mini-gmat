@@ -58,7 +58,7 @@ function Podium() {
                 </div>
               </div>
               <h1 className="mt-8 mb-2 font-bold">
-                {player ? player.display_name : "Who?"}
+                {player ? player.display_name : "?"}
               </h1>
               {!!player && (
                 <div className="mb-2 text-sm">

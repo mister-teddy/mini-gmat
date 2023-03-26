@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Countdown from "../components/countdown";
 import { timeElapsed } from "../utils/quiz";
+import FullscreenLoading from "../components/fullscreen-loading";
 
 function Header() {
   const allQuestionsInQuiz =
@@ -131,9 +132,7 @@ function TestRoomPage() {
           />
         </ErrorBoundary>
       ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          💯 ⏳ 🏆
-        </div>
+        <FullscreenLoading />
       )}
     </div>
   );

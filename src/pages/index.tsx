@@ -20,6 +20,7 @@ import {
   manualQuestionIdState,
   pickupQuestionIdState,
 } from "../state/questions";
+import { selectedQuizIdState } from "../state/quiz";
 
 export const questionTypesLabel = {
   DS: (
@@ -62,6 +63,7 @@ function AreYouReady() {
   const [ready, setReady] = useState(false);
   const currentQuestion = useRecoilValueLoadable(currentQuestionState);
   const pickupQuestionId = useRecoilValue(pickupQuestionIdState);
+  const setSeletectedQuizId = useSetRecoilState(selectedQuizIdState);
   useEffect(() => {
     if (currentQuestion.state === "hasValue" && ready) {
       if (currentType !== currentQuestion.contents.type) {
@@ -77,6 +79,12 @@ function AreYouReady() {
       setManualId(questionId);
       setReady(true);
       window.history.pushState({}, document.title, window.location.pathname);
+    }
+    const quizId = params.get("quizId");
+    if (quizId) {
+      setSeletectedQuizId(Number(quizId));
+      window.history.pushState({}, document.title, window.location.pathname);
+      navigate("/quiz");
     }
   }, []);
 
