@@ -3,8 +3,6 @@ import LazyLoadImage from "../components/lazyload-image";
 import { useConfettiFor } from "../utils/confetti";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
-import Loading from "../components/loading";
 import {
   leaderboardState,
   quizzesState,
@@ -12,10 +10,12 @@ import {
   quizDetailState,
 } from "../state/quiz";
 import { userState } from "../state/auth";
+import { displayScore } from "../utils/quiz";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
   const user = useRecoilValue(userState);
+  const quizDetail = useRecoilValue(quizDetailState);
 
   if (!leaderboard.data) {
     return <></>;
@@ -44,9 +44,8 @@ function Podium() {
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
                   src={
-                    player
-                      ? player.avatar
-                      : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
+                    player?.avatar ??
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
                   }
                   className={`object-cover rounded-full border-4 w-full h-full ${
                     ["border-gray-500", "border-yellow-400", "border-red-800"][
@@ -59,8 +58,13 @@ function Podium() {
                 </div>
               </div>
               <h1 className="mt-8 mb-2 font-bold">
-                {player ? player.userName : "?"}
+                {player ? player.display_name : "Who?"}
               </h1>
+              {!!player && (
+                <div className="mb-2 text-sm">
+                  {displayScore(player, quizDetail?.data?.duration ?? 30)}
+                </div>
+              )}
             </Button>
           )
         )}
@@ -80,9 +84,11 @@ function Podium() {
                 />
               </div>
               <h1 className="whitespace-nowrap overflow-hidden text-ellipsis px-2 text-left">
-                {player.displayName}
+                {player.display_name}
                 <br />
-                <span className="text-sm">Top {index + 4}</span>
+                <span className="text-sm">
+                  {displayScore(player, quizDetail?.data?.duration ?? 30)}
+                </span>
               </h1>
             </div>
           </Button>
@@ -105,7 +111,7 @@ function LeaderboardPage() {
       <div className="flex-none">
         <div className="flex justify-between items-center w-full mt-8">
           <div className="flex flex-col items-center w-full">
-            <h1 className="text-xl">🏆</h1>
+            <h1 className="text-[32px]">🏆</h1>
             {quizDetail && quizDetail.data && (
               <h2 className="font-bold text-xl text-center">
                 {quizDetail.data.name}
@@ -134,7 +140,7 @@ function LeaderboardPage() {
         <div className="py-2">
           <Button large className="w-full" onClick={() => navigate("/test")}>
             <span className="flex flex-col">
-              <span>📝 Begin</span>
+              <span>📝 Enter</span>
               <span className="text-sm font-normal">
                 {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
                 {quizDetail.data.duration} minutes

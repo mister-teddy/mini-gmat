@@ -3,12 +3,13 @@
 html,
 body,
 #app {
-    overflow: hidden;
-    user-select: none;
-    -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-[data-rsbs-scroll], .text-selectable {
+[data-rsbs-scroll],
+.text-selectable {
   user-select: auto;
 }
 
@@ -26,38 +27,38 @@ body,
   --text: white;
   --primary: #1d4ed8;
   --primary-text: white;
-  --secondary: #06b6d4;
+  --secondary: #006af5;
   --secondary-text: white;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .with-scroller {
-    &::-webkit-scrollbar {
-        display: initial;
-    }
+  &::-webkit-scrollbar {
+    display: initial;
+  }
 }
 
 a,
 button,
 input {
-    -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ellipsis-all {
-    * {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+  * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-    &:active {
-        * {
-            overflow: visible;
-            white-space: normal;
-            text-overflow: clip;
-        }
+  &:active {
+    * {
+      overflow: visible;
+      white-space: normal;
+      text-overflow: clip;
     }
+  }
 }

@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 import config from "../config";
 import { Question } from "../models/database";
-import { supabase } from "../services/supabase";
+import { invokeEdgeFunction, supabase } from "../services/supabase";
 
 export const quizzesState = selector({
   key: "quizzes",
@@ -38,12 +38,20 @@ export const quizDetailState = selector({
   },
 });
 
+export const leaderboardUniqueKeyState = atom({
+  key: "leaderboardUniqueKey",
+  default: 0,
+});
+
 export const leaderboardState = selector({
   key: "quizLeaderboard",
-  get: async () => {
+  get: async ({ get }) => {
+    get(leaderboardUniqueKeyState);
+    const quiz_id = get(selectedQuizIdState);
     return supabase
       .from("gmat_submissions")
       .select()
+      .eq("quiz_id", quiz_id)
       .order("score", { ascending: false });
   },
 });
@@ -64,12 +72,33 @@ export const quizAnswersState = atom<Record<string, number | number[]>>({
   default: {},
 });
 
+export const quizSubmissionState = selector({
+  key: "quizSubmission",
+  get: async ({ get }) => {
+    const quiz_id = get(selectedQuizIdState);
+    const answers = get(quizAnswersState);
+    const submission = await invokeEdgeFunction(
+      "submit-quiz",
+      {
+        answers,
+        quiz_id,
+      },
+      { answers: "{}", created_at: new Date(), submitted_at: null }
+    );
+    const savedAnswers = JSON.parse(submission.answers);
+    return {
+      ...submission,
+      answers: savedAnswers as Record<string, number | number[]>,
+    };
+  },
+});
+
 export const currentQuestionIdState = selector({
   key: "currentQuizQuestionId",
   get: ({ get }) => {
-    const answers = get(quizAnswersState);
+    const submission = get(quizSubmissionState);
     const quids = get(quizQuestionIdsState);
-    return quids.find((id) => !answers[id]);
+    return quids.find((id) => !submission.answers[id]);
   },
 });
 
@@ -77,9 +106,12 @@ export const currentQuestionState = selector<Question>({
   key: "currentQuizQuestion",
   get: async ({ get }) => {
     const id = get(currentQuestionIdState);
-    const res = await fetch(`${config.DATABASE_URL}/${id}.json`);
-    const question = await res.json();
-    return question;
+    if (id) {
+      const res = await fetch(`${config.DATABASE_URL}/${id}.json`);
+      const question = await res.json();
+      return question;
+    }
+    return undefined;
   },
 });
 

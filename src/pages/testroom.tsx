@@ -1,26 +1,45 @@
 import {
-  useRecoilState,
-  useRecoilValue,
   useRecoilValue_TRANSITION_SUPPORT_UNSTABLE,
   useSetRecoilState,
 } from "recoil";
 import Question from "../components/quiz/questions";
 import { useEffect, useTransition } from "react";
-import Countup from "../components/countup";
 import { useConfetti } from "../utils/confetti";
 import ErrorBoundary from "../components/error-boundary";
-import Back from "../components/back";
 import {
+  currentQuestionIdState,
   currentQuestionState,
-  durationState,
+  leaderboardUniqueKeyState,
   quizAnswersState,
   quizDetailState,
+  quizQuestionIdsState,
+  quizSubmissionState,
 } from "../state/quiz";
-import { invokeEdgeFunction, supabase } from "../services/supabase";
+import { useNavigate } from "react-router-dom";
+import Countdown from "../components/countdown";
+import { timeElapsed } from "../utils/quiz";
 
 function Header() {
-  const setDuration = useSetRecoilState(durationState);
-  const quizDetail = useRecoilValue(quizDetailState);
+  const allQuestionsInQuiz =
+    useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(quizQuestionIdsState);
+  const currentQuestionId = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
+    currentQuestionIdState
+  );
+  const submission =
+    useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(quizSubmissionState);
+  const quizDetail =
+    useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(quizDetailState);
+  const setAnswers = useSetRecoilState(quizAnswersState);
+  const setLeaderboardUniqueKey = useSetRecoilState(leaderboardUniqueKeyState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (submission.submitted_at) {
+      setLeaderboardUniqueKey((k) => k + 1);
+      setAnswers({});
+      navigate("/quiz");
+    }
+  }, [submission]);
 
   return (
     <div className="absolute w-full left-0 px-8 py-4 font-bold">
@@ -29,10 +48,30 @@ function Header() {
       </div>
       <div className="flex my-2 justify-between">
         <div className="space-x-2 ">
-          <Back />
+          <span>
+            Question{" "}
+            {allQuestionsInQuiz.indexOf(currentQuestionId!) + 1 ||
+              allQuestionsInQuiz.length}
+            /{allQuestionsInQuiz.length}
+          </span>
           <span className="h-5">⌛</span>
-          <Countup
-            onCount={setDuration}
+          <Countdown
+            timeLeft={timeElapsed(
+              new Date(submission.created_at),
+              quizDetail?.data?.duration ?? 30
+            )}
+            onTimeout={() =>
+              setAnswers((answers) => {
+                const filledInAnswers = { ...answers };
+                for (const index in allQuestionsInQuiz) {
+                  const questionId = allQuestionsInQuiz[index];
+                  if (!filledInAnswers[questionId]) {
+                    filledInAnswers[questionId] = -1;
+                  }
+                }
+                return filledInAnswers;
+              })
+            }
             render={([, , minute, second]) => (
               <span>
                 {minute}:{second}
@@ -56,24 +95,7 @@ function Finished() {
 }
 
 function TestRoomPage() {
-  const quizDetail = useRecoilValue(quizDetailState);
-  const [answers, setAnswers] = useRecoilState(quizAnswersState);
-
-  useEffect(() => {
-    if (quizDetail && quizDetail.data) {
-      invokeEdgeFunction(
-        "submit-quiz",
-        { quizId: quizDetail.data.id, answers },
-        { answers: "{}", score: 0 }
-      ).then((submission) => {
-        if (Object.keys(answers).length === 0) {
-          setAnswers(JSON.parse(submission.answers));
-        }
-        if (submission.score) {
-        }
-      });
-    }
-  }, [quizDetail, answers]);
+  const setAnswers = useSetRecoilState(quizAnswersState);
 
   const currentQuestion =
     useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(currentQuestionState);
@@ -81,31 +103,38 @@ function TestRoomPage() {
 
   return (
     <div className="w-full h-full">
-      <Header key={currentQuestion.id} />
-      <ErrorBoundary
-        fallback={
-          <span>
-            Câu hỏi này có vấn đề (chứ không phải hệ thống), báo lại với BTC để
-            đổi câu hỏi bạn nhé 📝
-          </span>
-        }
-      >
-        <Question
-          key={currentQuestion.id}
-          question={currentQuestion}
-          onAnswer={async (answer) => {
-            startTransition(() => {
-              setAnswers((answers) => ({
-                ...answers,
-                [currentQuestion.id]: answer,
-              }));
-            });
-            await new Promise(() => {
-              // A promise that never resolve
-            });
-          }}
-        />
-      </ErrorBoundary>
+      <Header />
+      {currentQuestion ? (
+        <ErrorBoundary
+          fallback={
+            <span>
+              Câu hỏi này có vấn đề (chứ không phải hệ thống), báo lại với BTC
+              để đổi câu hỏi bạn nhé 📝
+            </span>
+          }
+        >
+          <Question
+            key={currentQuestion.id}
+            noExplanation
+            question={currentQuestion}
+            onAnswer={async (answer) => {
+              startTransition(() => {
+                setAnswers((answers) => ({
+                  ...answers,
+                  [currentQuestion.id]: answer,
+                }));
+              });
+              await new Promise(() => {
+                // A promise that never resolve
+              });
+            }}
+          />
+        </ErrorBoundary>
+      ) : (
+        <div className="w-full h-full flex justify-center items-center">
+          💯 ⏳ 🏆
+        </div>
+      )}
     </div>
   );
 }

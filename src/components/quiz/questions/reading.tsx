@@ -7,14 +7,15 @@ import {
   useState,
 } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
-import { Question, SubQuestion } from "../../../models/database";
+import { QuestionProps } from ".";
+import { SubQuestion } from "../../../models/database";
 import Button from "../../button";
 import { Explanations } from "../../explanations";
 import Content from "../content";
-import { getABCD, useQnA } from "../hooks";
+import { getABCD } from "../hooks";
 
-export interface ReadingComprehensionQuestionProps {
-  question: Question;
+export interface ReadingComprehensionQuestionProps
+  extends Omit<QuestionProps, "onAnswer"> {
   onAnswer: (answer: number[]) => void;
 }
 
@@ -49,23 +50,30 @@ const ReadingComprehensionSubQuestion: FC<{
 
 const ReadingComprehensionQuestion: FunctionComponent<
   ReadingComprehensionQuestionProps
-> = ({ question, onAnswer }) => {
+> = ({ question, onAnswer, noExplanation }) => {
   const [reading, setReading] = useState(false);
-  const [haveRead, setHaveRead] = useState(false);
   const [viewExplaination, setViewExplaination] = useState(false);
 
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const [footerHeight, setFooterHeight] = useState(0);
   const [selected, setSelected] = useState<number[]>([]);
-  useEffect(() => {
+  const finished = useMemo(() => {
     console.log(question.subQuestions!.length, selected.length);
     if (
       question.subQuestions!.length > 0 &&
       selected.filter((i) => i !== -1).length === question.subQuestions!.length
     ) {
-      setViewExplaination(true);
+      return true;
     }
+    return false;
   }, [selected]);
+  useEffect(() => {
+    if (finished) {
+      if (noExplanation !== true) {
+        setViewExplaination(true);
+      }
+    }
+  }, [finished]);
   const [navHeight, setNavHeight] = useState(0);
 
   return (
@@ -93,23 +101,26 @@ const ReadingComprehensionQuestion: FunctionComponent<
         <Button
           onClick={() => {
             setReading(true);
-            setHaveRead(true);
           }}
-          loading={!haveRead}
           disabled={false}
         >
-          📖
+          Passages
         </Button>
-        <Button onClick={() => setViewExplaination(true)}>🔑</Button>
+        {noExplanation ? (
+          finished && (
+            <Button onClick={async () => onAnswer(selected)}>OK</Button>
+          )
+        ) : (
+          <Button onClick={() => setViewExplaination(true)}>
+            Explanations
+          </Button>
+        )}
       </div>
       <BottomSheet
         expandOnContentDrag
         open={reading}
         onDismiss={() => setReading(false)}
       >
-        <h1 ref={titleRef} className="text-center font-bold">
-          Reading Passage
-        </h1>
         <p className="m-4 p-4">
           <Content content={question.question} />
         </p>
@@ -122,17 +133,19 @@ const ReadingComprehensionQuestion: FunctionComponent<
             onClick={() => setReading(false)}
             className="w-full bg-secondary text-secondary-text border-none"
           >
-            Close
+            Hide
           </Button>
         </div>
       </BottomSheet>
-      <Explanations
-        visible={viewExplaination}
-        onDismiss={() => setViewExplaination(false)}
-        onConfirm={async () => onAnswer(selected)}
-        yourAnswer={`${selected.map(getABCD).join(", ")}`}
-        explanations={question.explanations}
-      />
+      {!noExplanation && (
+        <Explanations
+          visible={viewExplaination}
+          onDismiss={() => setViewExplaination(false)}
+          onConfirm={async () => onAnswer(selected)}
+          yourAnswer={`${selected.map(getABCD).join(", ")}`}
+          explanations={question.explanations}
+        />
+      )}
     </>
   );
 };
