@@ -1,27 +1,31 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import LazyLoadImage from "../components/lazyload-image";
 import { useConfettiFor } from "../utils/confetti";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
-import { Rank } from "../hooks/top";
 import { Suspense } from "react";
 import Loading from "../components/loading";
-import config from "../config";
-import { leaderboardState } from "../state/quiz";
+import { leaderboardState, quizzesState, selectedQuizIdState, quizDetailState } from "../state/quiz";
+import { userState } from "../state/auth";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
+  const user = useRecoilValue(userState);
+
+  if (!leaderboard.data) {
+    return <></>;
+  }
 
   return (
     <>
-      <div className="top-3 grid grid-cols-3 justify-evenly mt-16 shadow shadow-primary">
-        {[leaderboard[1], leaderboard[0], leaderboard[2]].map(
-          (player: Rank | undefined, index) => (
+      <div className="top-3 grid grid-cols-3 justify-evenly mt-16">
+        {[leaderboard.data[1], leaderboard.data[0], leaderboard.data[2]].map(
+          (player, index) => (
             <Button
-              loading={player ? player.isMe : false}
+              loading={player ? player.taker === user.userInfo.id : false}
               key={index}
               className={`${[
-                `scale-110 from-gray-100 to-gray-300 ${(player ? player.isMe : false) ? "" : "text-black"
+                `scale-110 from-gray-100 to-gray-300 ${(player ? player.taker === user.userInfo.id : false) ? "" : "text-black"
                 } origin-bottom-right !rounded-bl`,
                 "scale-125 from-yellow-200 to-yellow-500",
                 "from-amber-600 to-amber-800 !rounded-br",
@@ -30,7 +34,7 @@ function Podium() {
             >
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
-                  src={player ? player.avatar : ""}
+                  src={player ? player.avatar : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="}
                   className={`object-cover rounded-full border-4 w-full h-full ${["border-gray-500", "border-yellow-400", "border-red-800"][
                     index
                   ]
@@ -48,21 +52,21 @@ function Podium() {
         )}
       </div>
       <div className="flex-1 w-full space-y-2 overflow-y-auto pb-4">
-        {leaderboard.slice(3).map((player, index) => (
+        {(leaderboard.data ?? []).slice(3).map((player, index) => (
           <Button
             key={player.id}
-            loading={player.isMe}
+            loading={player.taker === user.userInfo.id}
             className={`py-2 px-4 w-full border-none first:mt-4 last:mb-4`}
           >
             <div className="flex justify-start flex-1 w-full items-center space-x-2">
               <div className="rounded-full shadow-lg shadow-primary flex-none border-2 border-white">
                 <LazyLoadImage
-                  src={player.avatar}
+                  src={player.avatar!}
                   className={`flex-none w-12 h-12 rounded-full shadow object-cover`}
                 />
               </div>
               <h1 className="whitespace-nowrap overflow-hidden text-ellipsis px-2 text-left">
-                {player.userName}
+                {player.displayName}
                 <br />
                 <span className="text-sm">Top {index + 4}</span>
               </h1>
@@ -76,36 +80,41 @@ function Podium() {
 
 function LeaderboardPage() {
   useConfettiFor(2000);
+  const quizzes = useRecoilValue(quizzesState);
+  const [selectedQuizId, setSelectedQuizId] = useRecoilState(selectedQuizIdState);
+  const quizDetail = useRecoilValue(quizDetailState);
   const navigate = useNavigate();
 
   return (
     <div className="w-full h-full px-[10%] flex flex-col">
       <div className="flex-none">
         <div className="flex justify-between items-center w-full mt-8">
-          <div className="flex flex-col items-center">
-            <h1>🏆</h1>
-            <h2 className="font-bold text-xl text-center">Top {config.TOP}</h2>
+          <div className="flex flex-col items-center w-full">
+            <h1 className="text-xl">🏆</h1>
+            {quizDetail && quizDetail.data && <h2 className="font-bold text-xl text-center">{quizDetail.data.name}</h2>}
             <select
               className="rounded text-black text-sm py-1 px-2 text-center mt-2"
+              value={selectedQuizId}
+              onChange={e => setSelectedQuizId(Number(e.target.value))}
             >
-              {config.EVENT_SEASONS.map((week, i) => (
-                <option key={week} value={week}>
-                  Tuần {config.EVENT_SEASONS[i]}
+              {(quizzes.data ?? []).map((quiz) => (
+                <option key={quiz.id} value={quiz.id} disabled={selectedQuizId === quiz.id}>
+                  {selectedQuizId === quiz.id ? 'Change quiz' : quiz.name}
                 </option>
               ))}
             </select>
           </div>
         </div>
       </div>
-      <Suspense
-        fallback={
-          <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center">
-            <Loading visible />
-          </div>
-        }
-      >
-        <Podium />
-      </Suspense>
+      <Podium />
+      {quizDetail && quizDetail.data && <div className="py-2">
+        <Button large className="w-full" onClick={() => navigate('/test')}>
+          <span className="flex flex-col">
+            <span>📝 Begin</span>
+            <span className="text-sm font-normal">{JSON.parse(quizDetail.data.question_ids).length} questions | {quizDetail.data.duration} minutes</span>
+          </span>
+        </Button>
+      </div>}
     </div>
   );
 }

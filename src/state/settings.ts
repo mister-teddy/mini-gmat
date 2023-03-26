@@ -1,32 +1,36 @@
-import { atom, selector } from "recoil"
-import api from 'zmp-sdk';
-import sdk from "../utils/sdk";
-import { app } from '../../app-config.json';
+import { atom, selector } from "recoil";
+import { getAppInfo, getSystemInfo, setNavigationBarColor } from "zmp-sdk";
+import { app } from "../../app-config.json";
 
 export const appInfoState = selector({
-  key: 'appInfoMode',
-  get: () => sdk.getAppInfo(),
+  key: "appInfoMode",
+  get: () => getAppInfo(),
 });
 
-
-const prefersColorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+const prefersColorScheme =
+  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
 
 export const darkState = atom({
-  key: 'darkMode',
-  default: api.getSystemInfo().zaloTheme === 'dark' ? true : prefersColorScheme.matches,
+  key: "darkMode",
+  default:
+    getSystemInfo().zaloTheme === "dark" ? true : prefersColorScheme.matches,
   effects: [
     ({ setSelf }) => {
       const handler = (event: MediaQueryListEvent) => {
         const dark = event.matches;
         setSelf(dark);
-        api.setNavigationBarColor({
+        setNavigationBarColor({
           color: app.headerColor,
-          statusBarColor: dark ? app.statusBarColor.dark : app.statusBarColor.light,
-          textColor: (dark ? app.textColor.dark : app.textColor.light) as 'white' | 'black'
-        })
-      }
+          statusBarColor: dark
+            ? app.statusBarColor.dark
+            : app.statusBarColor.light,
+          textColor: (dark ? app.textColor.dark : app.textColor.light) as
+            | "white"
+            | "black",
+        });
+      };
       try {
-        prefersColorScheme.addEventListener('change', handler);
+        prefersColorScheme.addEventListener("change", handler);
       } catch (error) {
         try {
           prefersColorScheme.addListener(handler);
@@ -34,6 +38,6 @@ export const darkState = atom({
           console.error(error);
         }
       }
-    }
-  ]
+    },
+  ],
 });

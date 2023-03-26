@@ -40,7 +40,7 @@ const ReadingComprehensionQuestion: FunctionComponent<ReadingComprehensionQuesti
   const [selected, setSelected] = useState<number[]>([]);
   useEffect(() => {
     console.log(question.subQuestions!.length, selected.length)
-    if (question.subQuestions!.length > 0 && selected.filter(i => i !== -1).length === question.subQuestions.length) {
+    if (question.subQuestions!.length > 0 && selected.filter(i => i !== -1).length === question.subQuestions!.length) {
       setViewExplaination(true);
     }
   }, [selected])
@@ -49,7 +49,7 @@ const ReadingComprehensionQuestion: FunctionComponent<ReadingComprehensionQuesti
   return <>
     <div className="w-full flex-none basis-12"></div>
     <div className="w-full overflow-y-auto">
-      {question.subQuestions!.map((question, i) => <ReadingComprehensionSubQuestion question={question} onAnswer={(answerIndex) => setSelected(ss => {
+      {question.subQuestions!.map((question, i) => <ReadingComprehensionSubQuestion key={i} question={question} onAnswer={(answerIndex) => setSelected(ss => {
         ss[i] = answerIndex;
         return [...ss];
       })} />)}

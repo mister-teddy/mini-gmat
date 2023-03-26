@@ -23,7 +23,7 @@ export default class ErrorBoundary extends Component<{ children: ReactNode, fall
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <div className="flex w-full h-full justify-center items-center p-8 text-center">{this.props.fallback ?? `Có gì đó không ổn, bạn quay lại sau nhé!`}</div>;
+      return <div className="flex w-full h-full justify-center items-center p-8 text-center">{this.props.fallback ?? `Đã có lỗi xảy ra, vui lòng liên hệ BTC để khắc phục sự cố 🐞`}</div>;
     }
 
     return this.props.children;
