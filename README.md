@@ -1,4 +1,4 @@
-# GMAT Practice Questions
+# Mini GMAT
 
 ## ZMP CLI Options
 
@@ -8,7 +8,7 @@ ZMP app created with following options:
 {
   "cwd": "/home/lap14870/Desktop/zalo/zmp-store-next",
   "newProject": true,
-  "name": "GMAT Practice Questions",
+  "name": "Mini GMAT",
   "framework": "react-typescript",
   "template": "blank",
   "cssPreProcessor": "scss",
@@ -27,5 +27,5 @@ ZMP app created with following options:
 
 ## NPM Scripts
 
-* 🔥 `start` - run development server
-* 🙏 `deploy` - deploy mini app for production
+- 🔥 `start` - run development server
+- 🙏 `deploy` - deploy mini app for production
