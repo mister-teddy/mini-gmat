@@ -7,7 +7,7 @@ export const SupportUs: FC = () => {
   const [visible, setVisible] = useState(false);
   return (
     <>
-      <Button onClick={() => setVisible(true)}>☕️</Button>
+      <Button className="min-w-0" onClick={() => setVisible(true)}>☕️</Button>
       <BottomSheet expandOnContentDrag open={visible} onDismiss={() => setVisible(false)} className="text-center">
         <h1 className="font-bold">Support us 💌</h1>
         <p className="p-4 pt-0 opacity-50 text-sm">

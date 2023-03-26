@@ -26,7 +26,7 @@ const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(({ cl
 
   return <animated.button
     type="button"
-    className={`border-2 border-secondary rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${large ? `text-xl font-bold` : ''} ${className}`}
+    className={`min-w-0 border-2 border-secondary rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${large ? `text-xl font-bold` : ''} ${className}`}
     style={{
       background: loading || clickLoading ? angle.to(a => `linear-gradient(${a}deg, var(--primary), var(--secondary))`) : '', ...(style ?? {}),
       color: loading || clickLoading ? `var(--primary-text)` : undefined

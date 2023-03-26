@@ -9,7 +9,7 @@ import { isIos, openExternal } from "../utils/sdk";
 export const AddToCalendar: FC = () => {
   const appInfo = useRecoilValue(appInfoState);
   return (
-    <Button onClick={(e) => {
+    <Button className="min-w-0" onClick={(e) => {
       if (isIos) {
         return openExternal(`https://tinyurl.com/rv8nu2cp`);
       }

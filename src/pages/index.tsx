@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { AddToCalendar } from '../components/add-to-calendar';
 import Button from '../components/button';
+import { QuizTaker } from '../components/quiz-taker';
 import { SupportUs } from '../components/support-us';
 import ZaloMiniApp from '../components/zalo-mini-app';
 import { QuestionType } from '../models/database';
@@ -10,9 +11,9 @@ import { currentQuestionState, currentQuestionTypeState, manualQuestionIdState, 
 import sdk from '../utils/sdk';
 
 export const questionTypesLabel = {
-  DS: <><span className="text-xl absolute -translate-x-2">💯</span><span className="ml-8"> Data Sufficiency</span></>,
-  PS: <><span className="text-xl absolute -translate-x-2">💡</span><span className="ml-8"> Problem Solving</span></>,
-  CR: <><span className="text-xl absolute -translate-x-2">🤔</span><span className="ml-8"> Critical Reasoning</span></>,
+  DS: <><span className="text-xl absolute -translate-x-2">🌓</span><span className="ml-8"> Data Sufficiency</span></>,
+  PS: <><span className="text-xl absolute -translate-x-2">🧮</span><span className="ml-8"> Problem Solving</span></>,
+  CR: <><span className="text-xl absolute -translate-x-2">💡</span><span className="ml-8"> Critical Reasoning</span></>,
   SC: <><span className="text-xl absolute -translate-x-2">✍️</span><span className="ml-8"> Sentence Correction</span></>,
   RC: <><span className="text-xl absolute -translate-x-2">📖</span><span className="ml-8"> Reading Comprehension</span></>,
 }
@@ -53,7 +54,7 @@ function AreYouReady() {
       setReady(true)
       await new Promise(() => { })
     }} className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}>
-      <span className="text-xl absolute -translate-x-2">⏯️</span>
+      <span className="text-xl absolute -translate-x-2">🛫</span>
       <span className="ml-8"> Pickup last question</span>
     </Button>}
     {Object.keys(questionTypesLabel).map(questionType => <Button key={questionType} onClick={async () => {
@@ -65,6 +66,7 @@ function AreYouReady() {
       {questionTypesLabel[questionType]}
     </Button>)}
     <div className="flex justify-between space-x-4 pb-8 w-full">
+      <QuizTaker />
       <AddToCalendar />
       <Button onClick={() => navigate('/saved')}>✅</Button>
       <SupportUs />
