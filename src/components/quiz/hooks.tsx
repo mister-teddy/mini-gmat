@@ -2,21 +2,23 @@ import { useMemo } from "react";
 
 export const useQnA = (content: string) => {
   return useMemo(() => {
-    const lines = content.split('<br>').map(line => line.trim());
+    const lines = content.split("<br>").map((line) => line.trim());
     const regex = /^([A-Z]\.|[A-Z]:|\(?[A-Z]\))\s*/i;
-    const answers = [] as string[], nonAnswers = [] as string[];
-    lines.forEach(line => {
+    const answers = [] as string[],
+      nonAnswers = [] as string[];
+    lines.forEach((line) => {
       if (line.match(regex)) {
         answers.push(line);
       } else {
         nonAnswers.push(line);
       }
-    })
+    });
     return {
-      answers: answers.map(line => line.replace(regex, '')),
-      content: nonAnswers.join('<br>')
-    }
-  }, [content])
-}
+      answers: answers.map((line) => line.replace(regex, "")),
+      content: nonAnswers.join("<br>"),
+    };
+  }, [content]);
+};
 
-export const getABCD = (index: number) => index < 0 ? '?' : String.fromCharCode(65 + index);
+export const getABCD = (index: number) =>
+  index < 0 ? "?" : String.fromCharCode(65 + index);

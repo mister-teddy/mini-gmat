@@ -1,7 +1,7 @@
-import confetti from 'canvas-confetti';
-import { useEffect, useRef, useState } from 'react';
+import confetti from "canvas-confetti";
+import { useEffect, useRef, useState } from "react";
 
-var colors = ['#bb0000', '#ffffff'];
+var colors = ["#bb0000", "#ffffff"];
 
 export const fire = (x: number, y: number) => {
   confetti({
@@ -9,28 +9,28 @@ export const fire = (x: number, y: number) => {
       startVelocity: 0,
       gravity: 5,
       x: x / window.innerWidth,
-      y: y / window.innerHeight
+      y: y / window.innerHeight,
     },
-  })
-}
+  });
+};
 
 export const sideConfetti = (callback?: () => void) => {
   confetti({
     angle: 60,
     spread: 55,
-    origin: { x: 0 }
+    origin: { x: 0 },
   });
   confetti({
     angle: 120,
     spread: 55,
     origin: { x: 1 },
-    colors: colors
+    colors: colors,
   });
 
   if (callback) {
     callback();
   }
-}
+};
 
 export const useConfetti = () => {
   const firing = useRef(true);
@@ -52,33 +52,33 @@ export const useConfetti = () => {
     if (firing.current) {
       requestAnimationFrame(start);
     }
-  }
+  };
 
   useEffect(() => {
     start();
   }, []);
 
   const stop = () => {
-    firing.current = false
+    firing.current = false;
   };
 
   const restart = () => {
     firing.current = true;
     start();
-  }
+  };
 
   return [stop, restart];
-}
+};
 
 export const useConfettiFor = (duration: number) => {
   const [stop, restart] = useConfetti();
   useEffect(() => {
     setTimeout(stop, duration);
-    window.addEventListener('touchstart', restart);
-    window.addEventListener('touchend', stop);
+    window.addEventListener("touchstart", restart);
+    window.addEventListener("touchend", stop);
     return () => {
-      window.removeEventListener('touchstart', restart);
-      window.removeEventListener('touchend', stop);
-    }
+      window.removeEventListener("touchstart", restart);
+      window.removeEventListener("touchend", stop);
+    };
   }, []);
-}
+};

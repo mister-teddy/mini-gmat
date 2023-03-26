@@ -1,25 +1,23 @@
 module.exports = {
   darkMode: "class",
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
         background: `var(--background)`,
         text: `var(--text)`,
         primary: `var(--primary)`,
-        'primary-text': `var(--primary-text)`,
+        "primary-text": `var(--primary-text)`,
         secondary: `var(--secondary)`,
-        'secondary-text': `var(--secondary-text)`,
+        "secondary-text": `var(--secondary-text)`,
       },
     },
     fontSize: {
-      sm: ['14px', '18px'],
-      base: ['16px', '22px'],
-      lg: ['18px', '22px'],
-      xl: ['24px', '32px'],
-    }
+      sm: ["14px", "18px"],
+      base: ["16px", "22px"],
+      lg: ["18px", "22px"],
+      xl: ["24px", "32px"],
+    },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ]
+  plugins: [require("@tailwindcss/line-clamp")],
 };

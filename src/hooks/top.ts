@@ -7,5 +7,5 @@ export interface Rank {
   totalScore: number;
   avatar: string;
   updatedAt: number;
-  isMe: boolean
+  isMe: boolean;
 }

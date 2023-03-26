@@ -6,31 +6,29 @@ import { randomNumber } from "../utils/numbers";
 import { nativeStorageEffect } from "./effects";
 
 export const currentQuestionTypeState = atom<QuestionType | undefined>({
-  key: 'currentQuestionType',
-  default: undefined
-})
+  key: "currentQuestionType",
+  default: undefined,
+});
 
 export const answeredQuestionsState = atom<{ [key: string]: number }>({
-  key: 'answeredQuestions',
+  key: "answeredQuestions",
   default: {},
-  effects: [nativeStorageEffect('answeredQuestions')]
-})
+  effects: [nativeStorageEffect("answeredQuestions")],
+});
 
 export const manualQuestionIdState = atom({
-  key: 'manualQuestionId',
-  default: ''
-})
+  key: "manualQuestionId",
+  default: "",
+});
 
 export const pickupQuestionIdState = atom({
-  key: 'pickupQuestionId',
-  default: '',
-  effects: [
-    nativeStorageEffect('pickupQuestionId')
-  ]
-})
+  key: "pickupQuestionId",
+  default: "",
+  effects: [nativeStorageEffect("pickupQuestionId")],
+});
 
 export const currentQuestionIdState = selector({
-  key: 'currentQuestionId',
+  key: "currentQuestionId",
   get: ({ get }) => {
     const manualId = get(manualQuestionIdState);
     if (manualId) {
@@ -40,12 +38,14 @@ export const currentQuestionIdState = selector({
     const answeredIds = Object.keys(answeredQuestions);
     const type = get(currentQuestionTypeState)!;
     const db = get(databaseState);
-    const unAnsweredIds = Object.values(db[type]).filter(id => !answeredIds.includes(id));
+    const unAnsweredIds = Object.values(db[type]).filter(
+      (id) => !answeredIds.includes(id)
+    );
     const randomIndex = randomNumber(0, unAnsweredIds.length - 1);
     const questionId = unAnsweredIds[randomIndex];
     return questionId;
-  }
-})
+  },
+});
 
 export const currentQuestionState = selector<Question>({
   key: "currentQuestion",
@@ -54,10 +54,10 @@ export const currentQuestionState = selector<Question>({
     const res = await fetch(`${config.DATABASE_URL}/${id}.json`);
     const question = await res.json();
     return question;
-  }
+  },
 });
 
 export const durationState = atom<number>({
-  key: 'duration',
+  key: "duration",
   default: 0,
-})
+});

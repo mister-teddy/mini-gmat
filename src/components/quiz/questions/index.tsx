@@ -20,7 +20,12 @@ const QuestionComponent: FunctionComponent<QuestionProps> = ({
       case "SC":
         return <CommonQuestion question={question} onAnswer={onAnswer} />;
       case "RC":
-        return <ReadingComprehensionQuestion question={question} onAnswer={onAnswer} />
+        return (
+          <ReadingComprehensionQuestion
+            question={question}
+            onAnswer={onAnswer}
+          />
+        );
       default:
         return <div>Unknown question type!</div>;
     }

@@ -1,4 +1,4 @@
-export type QuestionType = 'RC' | 'SC' | 'CR' | 'PS' | 'DS';
+export type QuestionType = "RC" | "SC" | "CR" | "PS" | "DS";
 
 export interface SubQuestion {
   question: string;
@@ -18,5 +18,3 @@ export interface Question {
 export type Database = {
   [type in QuestionType]: string[];
 };
-
-

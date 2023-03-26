@@ -5,7 +5,12 @@ import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import Loading from "../components/loading";
-import { leaderboardState, quizzesState, selectedQuizIdState, quizDetailState } from "../state/quiz";
+import {
+  leaderboardState,
+  quizzesState,
+  selectedQuizIdState,
+  quizDetailState,
+} from "../state/quiz";
 import { userState } from "../state/auth";
 
 function Podium() {
@@ -24,21 +29,30 @@ function Podium() {
             <Button
               loading={player ? player.taker === user.userInfo.id : false}
               key={index}
-              className={`${[
-                `scale-110 from-gray-100 to-gray-300 ${(player ? player.taker === user.userInfo.id : false) ? "" : "text-black"
-                } origin-bottom-right !rounded-bl`,
-                "scale-125 from-yellow-200 to-yellow-500",
-                "from-amber-600 to-amber-800 !rounded-br",
-              ][index]
-                } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary`}
+              className={`${
+                [
+                  `scale-110 from-gray-100 to-gray-300 ${
+                    (player ? player.taker === user.userInfo.id : false)
+                      ? ""
+                      : "text-black"
+                  } origin-bottom-right !rounded-bl`,
+                  "scale-125 from-yellow-200 to-yellow-500",
+                  "from-amber-600 to-amber-800 !rounded-br",
+                ][index]
+              } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary`}
             >
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
-                  src={player ? player.avatar : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="}
-                  className={`object-cover rounded-full border-4 w-full h-full ${["border-gray-500", "border-yellow-400", "border-red-800"][
-                    index
-                  ]
-                    }`}
+                  src={
+                    player
+                      ? player.avatar
+                      : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
+                  }
+                  className={`object-cover rounded-full border-4 w-full h-full ${
+                    ["border-gray-500", "border-yellow-400", "border-red-800"][
+                      index
+                    ]
+                  }`}
                 />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-3/4 text-xl">
                   {["🥈", "🥇", "🥉"][index]}
@@ -81,7 +95,8 @@ function Podium() {
 function LeaderboardPage() {
   useConfettiFor(2000);
   const quizzes = useRecoilValue(quizzesState);
-  const [selectedQuizId, setSelectedQuizId] = useRecoilState(selectedQuizIdState);
+  const [selectedQuizId, setSelectedQuizId] =
+    useRecoilState(selectedQuizIdState);
   const quizDetail = useRecoilValue(quizDetailState);
   const navigate = useNavigate();
 
@@ -91,15 +106,23 @@ function LeaderboardPage() {
         <div className="flex justify-between items-center w-full mt-8">
           <div className="flex flex-col items-center w-full">
             <h1 className="text-xl">🏆</h1>
-            {quizDetail && quizDetail.data && <h2 className="font-bold text-xl text-center">{quizDetail.data.name}</h2>}
+            {quizDetail && quizDetail.data && (
+              <h2 className="font-bold text-xl text-center">
+                {quizDetail.data.name}
+              </h2>
+            )}
             <select
               className="rounded text-black text-sm py-1 px-2 text-center mt-2"
               value={selectedQuizId}
-              onChange={e => setSelectedQuizId(Number(e.target.value))}
+              onChange={(e) => setSelectedQuizId(Number(e.target.value))}
             >
               {(quizzes.data ?? []).map((quiz) => (
-                <option key={quiz.id} value={quiz.id} disabled={selectedQuizId === quiz.id}>
-                  {selectedQuizId === quiz.id ? 'Change quiz' : quiz.name}
+                <option
+                  key={quiz.id}
+                  value={quiz.id}
+                  disabled={selectedQuizId === quiz.id}
+                >
+                  {selectedQuizId === quiz.id ? "Change quiz" : quiz.name}
                 </option>
               ))}
             </select>
@@ -107,14 +130,19 @@ function LeaderboardPage() {
         </div>
       </div>
       <Podium />
-      {quizDetail && quizDetail.data && <div className="py-2">
-        <Button large className="w-full" onClick={() => navigate('/test')}>
-          <span className="flex flex-col">
-            <span>📝 Begin</span>
-            <span className="text-sm font-normal">{JSON.parse(quizDetail.data.question_ids).length} questions | {quizDetail.data.duration} minutes</span>
-          </span>
-        </Button>
-      </div>}
+      {quizDetail && quizDetail.data && (
+        <div className="py-2">
+          <Button large className="w-full" onClick={() => navigate("/test")}>
+            <span className="flex flex-col">
+              <span>📝 Begin</span>
+              <span className="text-sm font-normal">
+                {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
+                {quizDetail.data.duration} minutes
+              </span>
+            </span>
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
