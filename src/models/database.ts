@@ -1,13 +1,22 @@
 export type QuestionType = 'RC' | 'SC' | 'CR' | 'PS' | 'DS';
 
+export interface SubQuestion {
+  question: string;
+  answers: string[];
+}
+
 export interface Question {
   id: string;
-  type: QuestionType;
   src: string;
+  type: QuestionType;
   question: string;
-  explainations: string[];
+  answers?: string[];
+  subQuestions?: SubQuestion[];
+  explanations: string[];
 }
 
 export type Database = {
   [type in QuestionType]: string[];
 };
+
+
