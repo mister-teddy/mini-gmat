@@ -34,11 +34,15 @@ function Header() {
   const setLeaderboardUniqueKey = useSetRecoilState(leaderboardUniqueKeyState);
   const navigate = useNavigate();
 
+  const finish = () => {
+    setLeaderboardUniqueKey((k) => k + 1);
+    setAnswers({});
+    navigate("/quiz");
+  };
+
   useEffect(() => {
     if (submission.submitted_at) {
-      setLeaderboardUniqueKey((k) => k + 1);
-      setAnswers({});
-      navigate("/quiz");
+      finish();
     }
   }, [submission]);
 
@@ -61,18 +65,7 @@ function Header() {
               new Date(submission.created_at),
               quizDetail?.data?.duration ?? 30
             )}
-            onTimeout={() =>
-              setAnswers((answers) => {
-                const filledInAnswers = { ...answers };
-                for (const index in allQuestionsInQuiz) {
-                  const questionId = allQuestionsInQuiz[index];
-                  if (!filledInAnswers[questionId]) {
-                    filledInAnswers[questionId] = -1;
-                  }
-                }
-                return filledInAnswers;
-              })
-            }
+            onTimeout={finish}
             render={([, , minute, second]) => (
               <span>
                 {minute}:{second}

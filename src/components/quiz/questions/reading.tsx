@@ -96,9 +96,10 @@ const ReadingComprehensionQuestion: FunctionComponent<
       </div>
       <div
         ref={(el) => setNavHeight(el ? el.clientHeight : 0)}
-        className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur flex justify-center space-x-4 p-4"
+        className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-2"
       >
         <Button
+          className="bg-secondary"
           onClick={() => {
             setReading(true);
           }}
@@ -108,10 +109,18 @@ const ReadingComprehensionQuestion: FunctionComponent<
         </Button>
         {noExplanation ? (
           finished && (
-            <Button onClick={async () => onAnswer(selected)}>OK</Button>
+            <Button
+              className="bg-secondary"
+              onClick={async () => onAnswer(selected)}
+            >
+              OK
+            </Button>
           )
         ) : (
-          <Button onClick={() => setViewExplaination(true)}>
+          <Button
+            className="bg-secondary"
+            onClick={() => setViewExplaination(true)}
+          >
             Explanations
           </Button>
         )}

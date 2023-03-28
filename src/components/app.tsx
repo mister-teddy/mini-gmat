@@ -9,7 +9,7 @@ import StudyRoom from "../pages/studyroom";
 import ErrorBoundary from "./error-boundary";
 import { MathJaxContext } from "better-react-mathjax";
 import SavedQuestionsPage from "../pages/saved-questions";
-import QuizRoomPage from "../pages/quizroom";
+import LeaderBoardPage from "../pages/podium";
 import TestRoomPage from "../pages/testroom";
 
 const Root = () => {
@@ -32,7 +32,7 @@ const Root = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/study" element={<StudyRoom />} />
             <Route path="/saved" element={<SavedQuestionsPage />} />
-            <Route path="/quiz" element={<QuizRoomPage />} />
+            <Route path="/quiz" element={<LeaderBoardPage />} />
             <Route path="/test" element={<TestRoomPage />} />
           </Routes>
         </Suspense>

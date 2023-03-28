@@ -24,11 +24,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
         <h1 className="my-8 flex">
           <Content content={question.question} />
         </h1>
-        <div
-          className={`flex-none w-full grid ${
-            question.type === "DS" ? "grid-cols-5" : "grid-cols-1"
-          } gap-3`}
-        >
+        <div className={`flex-none w-full grid grid-cols-1 space-y-3`}>
           {question.answers!.map((answer, i, items) => (
             <Button
               key={i}
@@ -36,11 +32,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
               loading={selected === i}
               onClick={() => setSelected(i)}
             >
-              {question.type === "DS" ? (
-                getABCD(i)
-              ) : (
-                <Content content={answer} />
-              )}
+              <Content content={answer} />
             </Button>
           ))}
         </div>
@@ -53,9 +45,14 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
         selected !== -1 && (
           <div
             ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-            className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur flex justify-center space-x-4 p-4"
+            className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-2"
           >
-            <Button onClick={async () => onAnswer(selected)}>OK</Button>
+            <Button
+              className="bg-secondary"
+              onClick={async () => onAnswer(selected)}
+            >
+              OK
+            </Button>
           </div>
         )
       ) : (

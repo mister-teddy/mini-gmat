@@ -2,13 +2,21 @@ export function displayScore(
   { score, total_score, submitted_at, created_at },
   durationInMinutes: number
 ) {
-  const minutes = Math.floor(
+  const seconds = Math.floor(
     ((submitted_at ? +new Date(submitted_at) : +new Date()) -
       +new Date(created_at)) /
-      60000
-  ); // Calculate the time elapsed in minutes
-  if (!submitted_at && minutes < durationInMinutes) {
+      1000
+  ); // Calculate the time elapsed in seconds
+  const minutes = Math.floor(seconds / 60);
+
+  if (!submitted_at && seconds < durationInMinutes * 60) {
+    if (minutes === 0) {
+      return `⏳ just have started`;
+    }
     return `⏳ ${minutes} minutes`;
+  }
+  if (minutes === 0) {
+    return `${score}/${total_score} | ${seconds} seconds`;
   }
   return `${score}/${total_score} | ${Math.min(
     minutes,

@@ -48,9 +48,11 @@ function Podium() {
                     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
                   }
                   className={`object-cover rounded-full border-4 w-full h-full ${
-                    ["border-gray-500", "border-yellow-400", "border-red-800"][
-                      index
-                    ]
+                    [
+                      "border-gray-500 bg-gray-600",
+                      "border-yellow-400 bg-yellow-500",
+                      "border-red-800 bg-red-900",
+                    ][index]
                   }`}
                 />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-3/4 text-xl">
@@ -98,7 +100,7 @@ function Podium() {
   );
 }
 
-function LeaderboardPage() {
+function LeaderBoardPage() {
   useConfettiFor(2000);
   const quizzes = useRecoilValue(quizzesState);
   const [selectedQuizId, setSelectedQuizId] =
@@ -153,4 +155,4 @@ function LeaderboardPage() {
   );
 }
 
-export default LeaderboardPage;
+export default LeaderBoardPage;

@@ -10,7 +10,6 @@ export const Explanations: FC<{
   yourAnswer: string;
   explanations: string[];
 }> = ({ visible, onDismiss, onConfirm, yourAnswer, explanations }) => {
-  const titleRef = useRef<HTMLHeadingElement | null>(null);
   const [footerHeight, setFooterHeight] = useState(0);
 
   return (
@@ -20,32 +19,43 @@ export const Explanations: FC<{
       onDismiss={onDismiss}
       title="Explanations"
     >
-      <h1 ref={titleRef} className="text-center font-bold">
-        Explanations
-      </h1>
-      {explanations.map((ex, i) => (
+      <div className="h-full flex flex-col">
+        <h1 className="text-center font-bold">Explanations</h1>
         <div
-          key={i}
-          className={`${
-            i === 0 ? "bg-yellow-100" : ""
-          } m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}
+          className="w-full overflow-y-auto"
+          style={{
+            maxHeight: `calc(100vh - 44px - ${footerHeight}px)`,
+          }}
+          ref={(el) => {
+            setTimeout(() => {
+              el?.scrollTo({ top: 0, behavior: "auto" });
+            }, 100);
+          }}
         >
-          {i === 0 && <b>🌟 Suggested answer </b>}
-          <Content key={i} content={ex} />
+          {explanations.map((ex, i) => (
+            <div
+              key={i}
+              className={`${
+                i === 0 ? "bg-yellow-100" : ""
+              } m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}
+            >
+              {i === 0 && <b>🌟 Suggested answer </b>}
+              <Content key={i} content={ex} />
+            </div>
+          ))}
         </div>
-      ))}
-      <div className="w-full" style={{ height: footerHeight }}></div>
-      <div
-        ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-        className="fixed bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2"
-      >
-        <Content content={`Your answer: <b>${yourAnswer}</b>`} />
-        <Button
-          onClick={onConfirm}
-          className="w-full bg-primary text-primary-text border-none text-text"
+        <div
+          ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
+          className="sticky bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2"
         >
-          Next question
-        </Button>
+          <Content content={`Your answer: <b>${yourAnswer}</b>`} />
+          <Button
+            onClick={onConfirm}
+            className="w-full bg-primary text-primary-text border-none text-text"
+          >
+            Next question
+          </Button>
+        </div>
       </div>
     </BottomSheet>
   );
