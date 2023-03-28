@@ -92,9 +92,9 @@ function AreYouReady() {
     <>
       <div className="flex-1 relative font-bold text-center leading-[1] text-[12vw] pr-8 -ml-4 pointer-events-none">
         <span>
-          GMAT
+          <small>Mini</small>
           <br />
-          practice
+          <span className="text-primary">GMAT</span>
         </span>
         <span className="text-secondary text-[48vw] absolute -top-12 rotate-12">
           ?
