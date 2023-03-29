@@ -32,7 +32,7 @@ export const ShareButton: FC = () => {
   return (
     <>
       <a className="space-x-2" onClick={share}>
-        <span className="h-5">📤</span>
+        <span className="h-5">🔗</span>
         <span>Share</span>
       </a>
       <span></span>

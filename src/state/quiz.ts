@@ -7,7 +7,10 @@ import { invokeEdgeFunction, supabase } from "../services/supabase";
 export const quizzesState = selector({
   key: "quizzes",
   get: async () => {
-    return supabase.from("gmat_quizzes").select("id,name");
+    return supabase
+      .from("gmat_quizzes")
+      .select("id,name")
+      .order("created_at", { ascending: false });
   },
 });
 
@@ -53,6 +56,7 @@ export const leaderboardState = selector({
       .from("gmat_submissions")
       .select()
       .eq("quiz_id", quiz_id)
+      .neq("total_score", 0)
       .order("score", { ascending: false })
       .limit(50);
   },

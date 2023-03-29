@@ -13,19 +13,19 @@ import { userState } from "../state/auth";
 import { displayScore } from "../utils/quiz";
 import { Suspense } from "react";
 import FullscreenLoading from "../components/fullscreen-loading";
+import { openShareSheet } from "zmp-sdk";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
   const user = useRecoilValue(userState);
   const quizDetail = useRecoilValue(quizDetailState);
-
   if (!leaderboard.data) {
     return <></>;
   }
 
   return (
     <>
-      <div className="top-3 grid grid-cols-3 justify-evenly mt-16">
+      <div className="top-3 grid grid-cols-3 justify-evenly mt-20">
         {[leaderboard.data[1], leaderboard.data[0], leaderboard.data[2]].map(
           (player, index) => (
             <Button
@@ -104,11 +104,27 @@ function Podium() {
 
 function LeaderBoardPage() {
   useConfettiFor(500);
+  const user = useRecoilValue(userState);
   const quizzes = useRecoilValue(quizzesState);
   const [selectedQuizId, setSelectedQuizId] =
     useRecoilState(selectedQuizIdState);
   const quizDetail = useRecoilValue(quizDetailState);
   const navigate = useNavigate();
+  const share = () => {
+    if (quizDetail && quizDetail.data) {
+      openShareSheet({
+        type: "zmp",
+        data: {
+          title: `${user.userInfo.name} invite you to take the "${quizDetail.data.name}"`,
+          thumbnail: user.userInfo.avatar,
+          path: `?quiz=${quizDetail.data.id}`,
+          description: `Quiz "${quizDetail.data.name}" | ${
+            JSON.parse(quizDetail.data.question_ids).length
+          } questions | ${quizDetail.data.duration} minutes`,
+        },
+      });
+    }
+  };
 
   return (
     <div className="w-full h-full px-[10%] flex flex-col">
@@ -116,13 +132,18 @@ function LeaderBoardPage() {
         <div className="flex justify-between items-center w-full mt-8">
           <div className="flex flex-col items-center w-full">
             <h1 className="text-[32px]">🏆</h1>
-            {quizDetail && quizDetail.data && (
-              <h2 className="font-bold text-xl text-center">
-                {quizDetail.data.name}
-              </h2>
-            )}
+            <div className="flex items-center space-x-4">
+              {quizDetail && quizDetail.data && (
+                <h2 className="font-bold text-xl text-center">
+                  {quizDetail.data.name}
+                </h2>
+              )}
+              <a onClick={share}>
+                <span>🏹</span>
+              </a>
+            </div>
             <select
-              className="rounded text-black text-sm py-1 px-2 text-center mt-2"
+              className="rounded text-black py-1 px-2 text-center mt-2 text-sm"
               value={selectedQuizId}
               onChange={(e) => setSelectedQuizId(Number(e.target.value))}
             >

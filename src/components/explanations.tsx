@@ -18,6 +18,7 @@ export const Explanations: FC<{
       open={visible}
       onDismiss={onDismiss}
       title="Explanations"
+      scrollLocking={false}
     >
       <div className="h-full flex flex-col">
         <h1 className="text-center font-bold">Explanations</h1>
