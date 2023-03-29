@@ -24,7 +24,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
         <h1 className="my-8 flex">
           <Content content={question.question} />
         </h1>
-        <div className={`flex-none w-full grid grid-cols-1 space-y-3`}>
+        <div className={`flex-none w-full grid grid-cols-1 space-y-3 pb-8`}>
           {question.answers!.map((answer, i, items) => (
             <Button
               key={i}

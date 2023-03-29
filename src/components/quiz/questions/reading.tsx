@@ -80,7 +80,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
   return (
     <>
       <div className="w-full flex-none basis-12"></div>
-      <div className="w-full overflow-y-auto">
+      <div className="w-full overflow-y-auto pb-8">
         {question.subQuestions!.map((question, i) => (
           <ReadingComprehensionSubQuestion
             key={i}

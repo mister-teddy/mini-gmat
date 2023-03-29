@@ -96,7 +96,7 @@ export const quizSubmissionState = selector({
     const savedAnswers = JSON.parse(submission.answers);
     if (Object.keys(savedAnswers).length > Object.keys(answers).length) {
       showToast({
-        message: "Continuing your last attempt.",
+        message: "Continuing your last attempt!",
       });
     }
     return {
