@@ -129,9 +129,10 @@ function AreYouReady() {
       ))}
       <div className="flex justify-between space-x-4 pb-8 w-full">
         <QuizTaker />
+        <Button className="min-w-0 flex-1" onClick={() => navigate("/saved")}>
+          ✅
+        </Button>
         <AddToCalendar />
-        <Button onClick={() => navigate("/saved")}>✅</Button>
-        <SupportUs />
       </div>
     </>
   );

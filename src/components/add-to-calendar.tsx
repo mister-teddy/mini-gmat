@@ -11,7 +11,7 @@ export const AddToCalendar: FC = () => {
   const appInfo = useRecoilValue(appInfoState);
   return (
     <Button
-      className="min-w-0"
+      className="min-w-0 flex-1"
       onClick={(e) => {
         if (getSystemInfo().platform.toLowerCase() === "ios") {
           return openExternal(`https://tinyurl.com/rv8nu2cp`);
