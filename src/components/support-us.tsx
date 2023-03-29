@@ -43,7 +43,7 @@ export const SupportUs: FC = () => {
         ].map((coffee) => (
           <p key={coffee.url} className="px-4 py-2">
             <Button
-              className="w-full !py-0 space-x-2 text-left active:bg-white active:text-black"
+              className="w-full !py-0 space-x-2 text-left active:bg-background active:text-text"
               onClick={() =>
                 openWebview({
                   url: coffee.url,

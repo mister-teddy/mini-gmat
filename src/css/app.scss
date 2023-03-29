@@ -29,6 +29,12 @@ body,
   --primary-text: white;
   --secondary: #006af5;
   --secondary-text: white;
+  --rsbs-bg: var(--background);
+  --rsbs-handle-bg: var(--text);
+}
+
+[data-rsbs-content] {
+  color: var(--text);
 }
 
 ::-webkit-scrollbar {

@@ -87,17 +87,18 @@ export const quizSubmissionState = selector({
       },
       { answers: "{}", created_at: new Date(), submitted_at: null }
     );
+    const savedAnswers = JSON.parse(submission.answers);
     if (Object.keys(answers).length === 0 && submission.submitted_at) {
       showToast({
         message:
           "You have a pending quiz submission, please wait a minute before taking another one!",
       });
-    }
-    const savedAnswers = JSON.parse(submission.answers);
-    if (Object.keys(savedAnswers).length > Object.keys(answers).length) {
-      showToast({
-        message: "Continuing your last attempt!",
-      });
+    } else {
+      if (Object.keys(savedAnswers).length > Object.keys(answers).length) {
+        showToast({
+          message: "Continuing your last attempt!",
+        });
+      }
     }
     return {
       ...submission,

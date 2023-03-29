@@ -119,7 +119,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
           )
         ) : (
           <Button
-            className="bg-secondary"
+            className="bg-secondary text-secondary-text"
             onClick={() => setViewExplaination(true)}
           >
             Explanations
@@ -137,7 +137,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
         <div className="w-full" style={{ height: footerHeight }}></div>
         <div
           ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-          className="fixed bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2"
+          className="fixed bottom-0 py-2 px-4 w-full bg-background shadow text-center space-y-2"
         >
           <Button
             onClick={() => setReading(false)}

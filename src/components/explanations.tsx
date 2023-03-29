@@ -36,8 +36,10 @@ export const Explanations: FC<{
             <div
               key={i}
               className={`${
-                i === 0 ? "bg-yellow-100" : ""
-              } m-4 p-4 rounded-lg bg-gray-100 border border-gray-200`}
+                i === 0
+                  ? "bg-yellow-100 dark:bg-yellow-800"
+                  : "bg-gray-100 dark:bg-gray-700"
+              } m-4 p-4 rounded-lg border border-gray-200 dark:border-gray-800`}
             >
               {i === 0 && <b>🌟 Suggested answer </b>}
               <Content key={i} content={ex} />
@@ -46,12 +48,12 @@ export const Explanations: FC<{
         </div>
         <div
           ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-          className="sticky bottom-0 py-2 px-4 w-full bg-white shadow text-center space-y-2"
+          className="sticky bottom-0 py-2 px-4 w-full bg-background shadow text-center space-y-2"
         >
           <Content content={`Your answer: <b>${yourAnswer}</b>`} />
           <Button
             onClick={onConfirm}
-            className="w-full bg-primary text-primary-text border-none text-text"
+            className="w-full bg-primary text-primary-text border-none"
           >
             Next question
           </Button>
