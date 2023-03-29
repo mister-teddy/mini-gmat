@@ -79,6 +79,7 @@ export const useConfettiFor = (duration: number) => {
     return () => {
       window.removeEventListener("touchstart", restart);
       window.removeEventListener("touchend", stop);
+      stop();
     };
   }, []);
 };

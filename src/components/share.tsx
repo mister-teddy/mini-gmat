@@ -24,7 +24,7 @@ export const ShareButton: FC = () => {
       data: {
         title: `${user.userInfo.name} want to practice this ${type} question with you`,
         thumbnail: user.userInfo.avatar,
-        path: `?questionId=${currentQuestion.id}`,
+        path: `?question=${currentQuestion.id}`,
         description: shareDescription,
       },
     });

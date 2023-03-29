@@ -74,13 +74,13 @@ function AreYouReady() {
   }, [ready, currentQuestion]);
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const questionId = params.get("questionId");
+    const questionId = params.get("question");
     if (questionId) {
       setManualId(questionId);
       setReady(true);
       window.history.pushState({}, document.title, window.location.pathname);
     }
-    const quizId = params.get("quizId");
+    const quizId = params.get("quiz");
     if (quizId) {
       setSeletectedQuizId(Number(quizId));
       window.history.pushState({}, document.title, window.location.pathname);
