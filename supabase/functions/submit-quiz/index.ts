@@ -16,7 +16,9 @@ serveWithUser(async (user, req) => {
   }
 
   const duration = quiz.duration as number;
-  const cutoffTime = new Date(Date.now() - duration * 60 * 1000).toISOString();
+  const cutoffTime = new Date(
+    Date.now() - (duration + 1) * 60 * 1000
+  ).toISOString();
   // Get current submission
   const submissions = await supabase
     .from("gmat_submissions")

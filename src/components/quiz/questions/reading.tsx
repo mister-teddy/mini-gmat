@@ -36,8 +36,9 @@ const ReadingComprehensionSubQuestion: FC<{
         {question.answers.map((answer, i, items) => (
           <Button
             key={i}
-            className={`px-4`}
-            loading={selected === i}
+            className={`px-4 ${
+              selected === i ? "bg-secondary text-secondary-text" : ""
+            }`}
             onClick={() => setSelected(i)}
           >
             <Content content={answer} />
@@ -99,7 +100,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
         className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-2"
       >
         <Button
-          className="bg-secondary"
+          className="bg-secondary text-secondary-text"
           onClick={() => {
             setReading(true);
           }}
@@ -110,7 +111,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
         {noExplanation ? (
           finished && (
             <Button
-              className="bg-secondary"
+              className="bg-secondary text-secondary-text"
               onClick={async () => onAnswer(selected)}
             >
               OK
@@ -140,7 +141,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
         >
           <Button
             onClick={() => setReading(false)}
-            className="w-full bg-secondary text-secondary-text border-none"
+            className="bg-secondary text-secondary-text m-auto border-none"
           >
             Hide
           </Button>

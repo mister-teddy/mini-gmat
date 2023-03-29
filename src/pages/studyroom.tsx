@@ -81,8 +81,8 @@ function StudyRoom() {
       <ErrorBoundary
         fallback={
           <span>
-            Có vẻ như bạn đã học xong hết tất cả các câu hỏi mà chúng tôi đang
-            có 🥶 Chúng tôi sẽ cập nhật thêm câu hỏi, bạn nhớ quay lại nhé 🎉
+            "It seems like you have completed all the questions we have 💪 We
+            will update with more questions, please come back later 🎉"
           </span>
         }
       >

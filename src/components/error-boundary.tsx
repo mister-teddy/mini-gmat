@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component<{
       return (
         <div className="flex w-full h-full justify-center items-center p-8 text-center">
           {this.props.fallback ??
-            `Đã có lỗi xảy ra, vui lòng liên hệ BTC để khắc phục sự cố 🐞`}
+            `There has been an error, please contact the organizers to resolve the issue. 🐞`}
         </div>
       );
     }

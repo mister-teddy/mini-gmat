@@ -28,8 +28,9 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
           {question.answers!.map((answer, i, items) => (
             <Button
               key={i}
-              className={`px-3 py-3 min-w-0`}
-              loading={selected === i}
+              className={`px-3 py-3 min-w-0 ${
+                selected === i ? "bg-secondary text-secondary-text" : ""
+              }`}
               onClick={() => setSelected(i)}
             >
               <Content content={answer} />
@@ -42,19 +43,21 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
         ></div>
       </div>
       {noExplanation ? (
-        selected !== -1 && (
-          <div
-            ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-            className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-2"
+        <div
+          ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
+          className={`absolute bottom-0 left-0 right-0 z-50 ${
+            selected === -1 ? "" : "backdrop-blur-xl"
+          } flex justify-center space-x-4 p-2`}
+        >
+          <Button
+            className={`bg-secondary text-secondary-text ${
+              selected === -1 ? "invisible" : ""
+            }`}
+            onClick={async () => onAnswer(selected)}
           >
-            <Button
-              className="bg-secondary"
-              onClick={async () => onAnswer(selected)}
-            >
-              OK
-            </Button>
-          </div>
-        )
+            OK
+          </Button>
+        </div>
       ) : (
         <Explanations
           visible={selected > -1}

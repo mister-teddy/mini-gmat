@@ -65,7 +65,18 @@ function Header() {
               new Date(submission.created_at),
               quizDetail?.data?.duration ?? 30
             )}
-            onTimeout={finish}
+            onTimeout={() =>
+              setAnswers((answers) => {
+                const filledInAnswers = { ...answers };
+                for (const index in allQuestionsInQuiz) {
+                  const questionId = allQuestionsInQuiz[index];
+                  if (!filledInAnswers[questionId]) {
+                    filledInAnswers[questionId] = -1;
+                  }
+                }
+                return filledInAnswers;
+              })
+            }
             render={([, , minute, second]) => (
               <span>
                 {minute}:{second}

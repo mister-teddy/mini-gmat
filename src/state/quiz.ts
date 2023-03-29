@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { showToast } from "zmp-sdk";
 import config from "../config";
 import { Question } from "../models/database";
 import { invokeEdgeFunction, supabase } from "../services/supabase";
@@ -52,7 +53,8 @@ export const leaderboardState = selector({
       .from("gmat_submissions")
       .select()
       .eq("quiz_id", quiz_id)
-      .order("score", { ascending: false });
+      .order("score", { ascending: false })
+      .limit(50);
   },
 });
 
@@ -85,7 +87,18 @@ export const quizSubmissionState = selector({
       },
       { answers: "{}", created_at: new Date(), submitted_at: null }
     );
+    if (Object.keys(answers).length === 0 && submission.submitted_at) {
+      showToast({
+        message:
+          "You have a pending quiz submission, please wait a minute before taking another one!",
+      });
+    }
     const savedAnswers = JSON.parse(submission.answers);
+    if (Object.keys(savedAnswers).length > Object.keys(answers).length) {
+      showToast({
+        message: "Continuing your last attempt.",
+      });
+    }
     return {
       ...submission,
       answers: savedAnswers as Record<string, number | number[]>,
@@ -98,7 +111,7 @@ export const currentQuestionIdState = selector({
   get: ({ get }) => {
     const submission = get(quizSubmissionState);
     const quids = get(quizQuestionIdsState);
-    return quids.find((id) => !submission.answers[id]);
+    return quids.find((id) => submission.answers[id] === undefined);
   },
 });
 

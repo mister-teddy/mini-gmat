@@ -11,6 +11,8 @@ import {
 } from "../state/quiz";
 import { userState } from "../state/auth";
 import { displayScore } from "../utils/quiz";
+import { Suspense } from "react";
+import FullscreenLoading from "../components/fullscreen-loading";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
@@ -101,7 +103,7 @@ function Podium() {
 }
 
 function LeaderBoardPage() {
-  useConfettiFor(2000);
+  useConfettiFor(500);
   const quizzes = useRecoilValue(quizzesState);
   const [selectedQuizId, setSelectedQuizId] =
     useRecoilState(selectedQuizIdState);
@@ -155,4 +157,12 @@ function LeaderBoardPage() {
   );
 }
 
-export default LeaderBoardPage;
+function PodiumPage() {
+  return (
+    <Suspense fallback={<FullscreenLoading />}>
+      <LeaderBoardPage />
+    </Suspense>
+  );
+}
+
+export default PodiumPage;
