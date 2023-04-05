@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { openShareSheet } from "zmp-sdk";
+import { getShareableLink, openShareSheet } from "zmp-sdk";
 import { userState } from "../state/auth";
 import {
   currentQuestionState,
@@ -18,15 +18,18 @@ export const ShareButton: FC = () => {
       : div.innerText;
   }, [currentQuestion]);
   const user = useRecoilValue(userState);
-  const share = () => {
-    openShareSheet({
-      type: "zmp",
+  const share = async () => {
+    const link = await getShareableLink({
+      title: `${user.userInfo.name} want to practice this ${type} question with you`,
+      thumbnail: user.userInfo.avatar,
+      path: `?question=${currentQuestion.id}`,
+      description: shareDescription,
+    });
+    await openShareSheet({
+      type: 'link',
       data: {
-        title: `${user.userInfo.name} want to practice this ${type} question with you`,
-        thumbnail: user.userInfo.avatar,
-        path: `?question=${currentQuestion.id}`,
-        description: shareDescription,
-      },
+        link
+      }
     });
   };
   return (

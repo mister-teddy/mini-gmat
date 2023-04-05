@@ -13,8 +13,7 @@ import { userState } from "../state/auth";
 import { displayScore } from "../utils/quiz";
 import { Suspense } from "react";
 import FullscreenLoading from "../components/fullscreen-loading";
-import { openShareSheet } from "zmp-sdk";
-import config from "../config";
+import { getShareableLink, openShareSheet } from "zmp-sdk";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
@@ -108,17 +107,20 @@ function LeaderBoardPage() {
     useRecoilState(selectedQuizIdState);
   const quizDetail = useRecoilValue(quizDetailState);
   const navigate = useNavigate();
-  const share = () => {
+  const share = async () => {
     if (quizDetail && quizDetail.data) {
-      openShareSheet({
-        type: "zmp",
+      const link = await getShareableLink({
+        title: `${user.userInfo.name} invite you to take the "${quizDetail.data.name}" quiz!`,
+        thumbnail: user.userInfo.avatar,
+        path: `?quiz=${quizDetail.data.id}`,
+        description: `${JSON.parse(quizDetail.data.question_ids).length
+          } questions | ${quizDetail.data.duration} minutes`,
+      });
+      await openShareSheet({
+        type: 'link',
         data: {
-          title: `${user.userInfo.name} invite you to take the "${quizDetail.data.name}"`,
-          thumbnail: config.COVER_URL,
-          path: `?quiz=${quizDetail.data.id}`,
-          description: `Quiz "${quizDetail.data.name}" | ${JSON.parse(quizDetail.data.question_ids).length
-            } questions | ${quizDetail.data.duration} minutes`,
-        },
+          link
+        }
       });
     }
   };
