@@ -14,6 +14,7 @@ import { displayScore } from "../utils/quiz";
 import { Suspense } from "react";
 import FullscreenLoading from "../components/fullscreen-loading";
 import { openShareSheet } from "zmp-sdk";
+import config from "../config";
 
 function Podium() {
   const leaderboard = useRecoilValue(leaderboardState);
@@ -31,17 +32,15 @@ function Podium() {
             <Button
               loading={player ? player.taker === user.userInfo.id : false}
               key={index}
-              className={`${
-                [
-                  `scale-110 from-gray-100 to-gray-300 ${
-                    (player ? player.taker === user.userInfo.id : false)
-                      ? ""
-                      : "text-black"
-                  } origin-bottom-right !rounded-bl`,
-                  "scale-125 from-yellow-200 to-yellow-500",
-                  "from-amber-600 to-amber-800 !rounded-br",
-                ][index]
-              } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary`}
+              className={`${[
+                `scale-110 from-gray-100 to-gray-300 ${(player ? player.taker === user.userInfo.id : false)
+                  ? ""
+                  : "text-black"
+                } origin-bottom-right !rounded-bl`,
+                "scale-125 from-yellow-200 to-yellow-500",
+                "from-amber-600 to-amber-800 !rounded-br",
+              ][index]
+                } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary`}
             >
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
@@ -49,13 +48,12 @@ function Podium() {
                     player?.avatar ??
                     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
                   }
-                  className={`object-cover rounded-full border-4 w-full h-full ${
-                    [
-                      "border-gray-500 bg-gray-600",
-                      "border-yellow-400 bg-yellow-500",
-                      "border-red-800 bg-red-900",
-                    ][index]
-                  }`}
+                  className={`object-cover rounded-full border-4 w-full h-full ${[
+                    "border-gray-500 bg-gray-600",
+                    "border-yellow-400 bg-yellow-500",
+                    "border-red-800 bg-red-900",
+                  ][index]
+                    }`}
                 />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-3/4 text-xl">
                   {["🥈", "🥇", "🥉"][index]}
@@ -116,11 +114,10 @@ function LeaderBoardPage() {
         type: "zmp",
         data: {
           title: `${user.userInfo.name} invite you to take the "${quizDetail.data.name}"`,
-          thumbnail: user.userInfo.avatar,
+          thumbnail: config.COVER_URL,
           path: `?quiz=${quizDetail.data.id}`,
-          description: `Quiz "${quizDetail.data.name}" | ${
-            JSON.parse(quizDetail.data.question_ids).length
-          } questions | ${quizDetail.data.duration} minutes`,
+          description: `Quiz "${quizDetail.data.name}" | ${JSON.parse(quizDetail.data.question_ids).length
+            } questions | ${quizDetail.data.duration} minutes`,
         },
       });
     }
