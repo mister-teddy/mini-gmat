@@ -10,6 +10,7 @@ import {
 import { closeLoading } from "zmp-sdk";
 import { AddToCalendar } from "../components/add-to-calendar";
 import Button from "../components/button";
+import { FontSelector } from "../components/font-selector";
 import { QuizTaker } from "../components/quiz-taker";
 import ZaloMiniApp from "../components/zalo-mini-app";
 import { QuestionType } from "../models/database";
@@ -94,7 +95,7 @@ function AreYouReady() {
           onClick={async () => {
             setManualId(pickupQuestionId);
             setReady(true);
-            await new Promise(() => {});
+            await new Promise(() => { });
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >
@@ -109,7 +110,7 @@ function AreYouReady() {
             chooseType(questionType as QuestionType);
             clearManualId();
             setReady(true);
-            await new Promise(() => {});
+            await new Promise(() => { });
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >
@@ -122,6 +123,7 @@ function AreYouReady() {
           ✅
         </Button>
         <AddToCalendar />
+        <FontSelector />
       </div>
     </div>
   );

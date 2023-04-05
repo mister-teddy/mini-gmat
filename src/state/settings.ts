@@ -1,11 +1,30 @@
 import { atom, selector } from "recoil";
 import { getAppInfo, getSystemInfo, setNavigationBarColor } from "zmp-sdk";
 import { app } from "../../app-config.json";
+import { localStorageEffect } from "./effects";
 
 export const appInfoState = selector({
   key: "appInfoMode",
   get: () => getAppInfo(),
 });
+
+export const FONTS = [undefined, 'Cambria', 'Cochin', 'Georgia', 'Times New Roman', 'Bradley Hand', 'Noteworthy', 'Snell Roundhand'];
+
+export const fontIndexState = atom({
+  key: "fontIndex",
+  default: 0,
+  effects: [
+    localStorageEffect('MINI_GMAT_FONT')
+  ]
+})
+
+export const fontState = selector({
+  key: "font",
+  get: ({ get }) => {
+    const index = get(fontIndexState);
+    return FONTS[index % FONTS.length];
+  }
+})
 
 const prefersColorScheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");

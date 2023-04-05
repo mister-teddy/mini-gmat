@@ -42,11 +42,9 @@ export function localStorageEffect<T>(key: string) {
       isReset
         ? localStorage.removeItem(key)
         : localStorage.setItem(
-            key,
-            JSON.stringify(
-              (newValue as T[]).map((app) => ({ ...app, cached: true }))
-            )
-          );
+          key,
+          JSON.stringify(newValue)
+        );
     });
   }) as AtomEffect<T>;
 }
