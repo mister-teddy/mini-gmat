@@ -41,7 +41,7 @@ const QuestionComponent: FunctionComponent<QuestionProps> = ({
   }, [question]);
 
   return (
-    <div className="h-full flex flex-col justify-center items-center p-8 pb-0 overflow-hidden">
+    <div className="h-full flex flex-col justify-center items-center overflow-hidden">
       {content}
     </div>
   );

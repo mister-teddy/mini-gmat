@@ -25,7 +25,7 @@ export const Explanations: FC<{
         <div
           className="w-full overflow-y-auto"
           style={{
-            maxHeight: `calc(100vh - 44px - ${footerHeight}px)`,
+            maxHeight: `calc(100vh - 44px - ${footerHeight}px - env(safe-area-inset-top) - env(safe-area-inset-bottom))`,
           }}
           ref={(el) => {
             setTimeout(() => {

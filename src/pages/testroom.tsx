@@ -47,7 +47,7 @@ function Header() {
   }, [submission]);
 
   return (
-    <div className="absolute w-full left-0 px-8 py-4 font-bold">
+    <div className="w-full flex-none font-bold">
       <div className="flex space-x-6 items-center text-lg uppercase">
         {quizDetail?.data?.name}
       </div>
@@ -107,7 +107,7 @@ function TestRoomPage() {
   const [loading, startTransition] = useTransition();
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full p-8 pb-0 flex flex-col">
       <Header />
       {currentQuestion ? (
         <ErrorBoundary

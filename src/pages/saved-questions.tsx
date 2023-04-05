@@ -63,9 +63,9 @@ function SavedQuestionsPage() {
   const [type, setType] = useState<QuestionType>(currentQuestionType ?? "DS");
 
   return (
-    <div className="w-full h-full px-4 flex flex-col">
-      <Back />
-      <div className="flex-none px-4">
+    <div className="w-full h-full p-8 flex flex-col">
+      <div className="flex-none">
+        <Back />
         <div className="flex justify-between items-center w-full mt-8">
           <div className="flex flex-col items-center">
             <h2 className="font-bold text-lg w-full">Completed questions</h2>

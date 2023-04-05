@@ -19,7 +19,6 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
 
   return (
     <>
-      <div className="w-full flex-none basis-12"></div>
       <div className="w-full overflow-y-auto">
         <h1 className="my-8 flex">
           <Content content={question.question} />
@@ -47,7 +46,10 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
           ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
           className={`absolute bottom-0 left-0 right-0 z-50 ${
             selected === -1 ? "" : "backdrop-blur-xl"
-          } flex justify-center space-x-4 p-2`}
+          } flex justify-center space-x-4 p-4 pt-2`}
+          style={{
+            paddingBottom: `env(safe-area-inset-bottom, 8px)`,
+          }}
         >
           <Button
             className={`bg-secondary text-secondary-text ${

@@ -79,8 +79,10 @@ const ReadingComprehensionQuestion: FunctionComponent<
 
   return (
     <>
-      <div className="w-full flex-none basis-12"></div>
-      <div className="w-full overflow-y-auto pb-8">
+      <div className="w-full overflow-y-auto py-8">
+        <p>
+          <Content content={question.question} />
+        </p>
         {question.subQuestions!.map((question, i) => (
           <ReadingComprehensionSubQuestion
             key={i}
@@ -95,58 +97,24 @@ const ReadingComprehensionQuestion: FunctionComponent<
         ))}
         <div className="w-full flex-none" style={{ height: navHeight }}></div>
       </div>
-      <div
-        ref={(el) => setNavHeight(el ? el.clientHeight : 0)}
-        className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-2"
-      >
-        <Button
-          className="bg-secondary text-secondary-text"
-          onClick={() => {
-            setReading(true);
+      {noExplanation && (
+        <div
+          ref={(el) => setNavHeight(el ? el.clientHeight : 0)}
+          className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-4 pt-2"
+          style={{
+            paddingBottom: `env(safe-area-inset-bottom, 8px)`,
           }}
-          disabled={false}
         >
-          Passages
-        </Button>
-        {noExplanation ? (
-          finished && (
+          {finished && (
             <Button
               className="bg-secondary text-secondary-text"
               onClick={async () => onAnswer(selected)}
             >
               OK
             </Button>
-          )
-        ) : (
-          <Button
-            className="bg-secondary text-secondary-text"
-            onClick={() => setViewExplaination(true)}
-          >
-            Explanations
-          </Button>
-        )}
-      </div>
-      <BottomSheet
-        expandOnContentDrag
-        open={reading}
-        onDismiss={() => setReading(false)}
-      >
-        <p className="m-4 p-4">
-          <Content content={question.question} />
-        </p>
-        <div className="w-full" style={{ height: footerHeight }}></div>
-        <div
-          ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-          className="fixed bottom-0 py-2 px-4 w-full bg-background shadow text-center space-y-2"
-        >
-          <Button
-            onClick={() => setReading(false)}
-            className="bg-secondary text-secondary-text m-auto border-none"
-          >
-            Hide
-          </Button>
+          )}
         </div>
-      </BottomSheet>
+      )}
       {!noExplanation && (
         <Explanations
           visible={viewExplaination}

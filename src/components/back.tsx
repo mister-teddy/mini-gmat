@@ -6,7 +6,7 @@ const Back: FC = () => {
 
   return (
     <>
-      <a className="space-x-2" onClick={() => navigate(-1)}>
+      <a className="space-x-2" onClick={() => navigate("/", { replace: true })}>
         <span className="h-5">⬅️</span>
         <span>Home</span>
       </a>

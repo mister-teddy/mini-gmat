@@ -11,7 +11,6 @@ import { closeLoading } from "zmp-sdk";
 import { AddToCalendar } from "../components/add-to-calendar";
 import Button from "../components/button";
 import { QuizTaker } from "../components/quiz-taker";
-import { SupportUs } from "../components/support-us";
 import ZaloMiniApp from "../components/zalo-mini-app";
 import { QuestionType } from "../models/database";
 import {
@@ -89,17 +88,7 @@ function AreYouReady() {
   }, []);
 
   return (
-    <>
-      <div className="flex-1 relative font-bold text-center leading-[1] text-[12vw] pr-8 -ml-4 pointer-events-none">
-        <span>
-          <small>Mini</small>
-          <br />
-          <span className="text-primary">GMAT</span>
-        </span>
-        <span className="text-secondary text-[48vw] absolute -top-12 rotate-12">
-          ?
-        </span>
-      </div>
+    <div className="w-full flex-1 space-y-4 flex flex-col justify-center">
       {!!pickupQuestionId && (
         <Button
           onClick={async () => {
@@ -127,14 +116,14 @@ function AreYouReady() {
           {questionTypesLabel[questionType]}
         </Button>
       ))}
-      <div className="flex justify-between space-x-4 pb-8 w-full">
+      <div className="flex justify-between space-x-4 w-full">
         <QuizTaker />
         <Button className="min-w-0 flex-1" onClick={() => navigate("/saved")}>
           ✅
         </Button>
         <AddToCalendar />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -144,10 +133,10 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full px-8 pt-[25%] space-y-4">
+    <div className="flex flex-col items-center w-full h-full p-8 space-y-4">
       <AreYouReady />
-      <small className="whitespace-nowrap space-x-2 opacity-75 pb-2">
-        A product of <ZaloMiniApp className="inline" width={96} /> team
+      <small className="absolute bottom-8 whitespace-nowrap space-x-2 opacity-75">
+        A product of the <ZaloMiniApp className="inline" width={96} /> team
       </small>
     </div>
   );

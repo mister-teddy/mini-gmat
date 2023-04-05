@@ -13,10 +13,15 @@
       "dark": "#121415"
     },
     "leftButton": "back",
-    "selfControlLoading": true
+    "selfControlLoading": true,
+    "actionBarHidden": true,
+    "hideAndroidBottomNavigationBar": true,
+    "hideIOSSafeAreaBottom": true,
+    "statusBar": "transparent"
   },
   "debug": false,
   "listCSS": [],
   "listSyncJS": [],
-  "listAsyncJS": []
+  "listAsyncJS": [],
+  "template": {}
 }

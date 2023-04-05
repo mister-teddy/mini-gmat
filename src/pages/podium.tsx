@@ -103,7 +103,7 @@ function Podium() {
 }
 
 function LeaderBoardPage() {
-  useConfettiFor(500);
+  useConfettiFor(1000);
   const user = useRecoilValue(userState);
   const quizzes = useRecoilValue(quizzesState);
   const [selectedQuizId, setSelectedQuizId] =
@@ -127,7 +127,7 @@ function LeaderBoardPage() {
   };
 
   return (
-    <div className="w-full h-full px-[10%] flex flex-col">
+    <div className="w-full h-full p-8 flex flex-col">
       <div className="flex-none">
         <div className="flex justify-between items-center w-full mt-8">
           <div className="flex flex-col items-center w-full">

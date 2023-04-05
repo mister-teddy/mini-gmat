@@ -1,6 +1,6 @@
 import { RecoilRoot, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { HashRouter, Routes, Route } from "react-router-dom";
-
+import cover from "../static/cover.png";
 import HomePage from "../pages/index";
 import { darkState } from "../state/settings";
 import Loading from "./loading";
@@ -18,7 +18,8 @@ const Root = () => {
 
   return (
     <div
-      className={`fixed left-0 right-0 top-0 bottom-0 overflow-y-auto bg-cover bg-no-repeat bg-center text-text bg-background`}
+      className={`fixed left-0 right-0 top-0 bottom-0 pt-6 overflow-y-auto bg-cover bg-no-repeat bg-center text-text bg-background`}
+      style={{ backgroundImage: `url(${cover})` }}
     >
       <ErrorBoundary>
         <Suspense

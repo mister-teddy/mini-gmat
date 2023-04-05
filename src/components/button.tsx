@@ -34,7 +34,7 @@ const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(
     return (
       <animated.button
         type="button"
-        className={`min-w-0 border-2 border-secondary rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${
+        className={`min-w-0 border border-secondary backdrop-blur rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${
           large ? `text-xl font-bold` : ""
         } ${className}`}
         style={{

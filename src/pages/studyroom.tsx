@@ -26,7 +26,7 @@ function Header() {
   const setDuration = useSetRecoilState(durationState);
   const type = useRecoilValue(currentQuestionTypeState);
   return (
-    <div className="absolute w-full left-0 px-8 py-4 font-bold">
+    <div className="flex-none w-full left-0 font-bold">
       <div className="flex space-x-6 items-center text-lg uppercase">
         {questionTypesLabel[type!]}
       </div>
@@ -76,7 +76,7 @@ function StudyRoom() {
   }, [currentQuestion]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full p-8 pb-0 flex flex-col">
       <Header key={currentQuestion.id} />
       <ErrorBoundary
         fallback={
