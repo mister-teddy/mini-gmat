@@ -95,7 +95,7 @@ function AreYouReady() {
           onClick={async () => {
             setManualId(pickupQuestionId);
             setReady(true);
-            await new Promise(() => {});
+            await new Promise(() => { });
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >
@@ -110,14 +110,14 @@ function AreYouReady() {
             chooseType(questionType as QuestionType);
             clearManualId();
             setReady(true);
-            await new Promise(() => {});
+            await new Promise(() => { });
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >
           {questionTypesLabel[questionType]}
         </Button>
       ))}
-      <div className="flex justify-between space-x-4 w-full">
+      <div className="grid grid-cols-4 gap-4 w-full">
         <QuizTaker />
         <Button className="min-w-0 flex-1" onClick={() => navigate("/saved")}>
           ✅

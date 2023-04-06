@@ -115,7 +115,7 @@ function LeaderBoardPage() {
   const share = async () => {
     if (quizDetail && quizDetail.data) {
       const link = await getShareableLink({
-        title: `${user.userInfo.name} invite you to take the "${quizDetail.data.name}" quiz!`,
+        title: `${user.userInfo.name} invites you to take the "${quizDetail.data.name}" quiz!`,
         thumbnail: user.userInfo.avatar,
         path: `?quiz=${quizDetail.data.id}`,
         description: `${
