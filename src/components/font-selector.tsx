@@ -9,7 +9,7 @@ export const FontSelector: FC = () => {
     <Button
       className="min-w-0 flex-1 text-lg"
       onClick={(e) => {
-        setFontIndex(i => i + 1);
+        setFontIndex((i) => i + 1);
       }}
     >
       Aa

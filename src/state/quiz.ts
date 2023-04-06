@@ -57,7 +57,9 @@ export const leaderboardState = selector({
       .select()
       .eq("quiz_id", quiz_id)
       .neq("total_score", 0)
+      .or("score.neq.0,created_at.gt.yesterday")
       .order("score", { ascending: false })
+      .order("submitted_at", { ascending: true })
       .limit(50);
   },
 });

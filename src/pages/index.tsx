@@ -95,7 +95,7 @@ function AreYouReady() {
           onClick={async () => {
             setManualId(pickupQuestionId);
             setReady(true);
-            await new Promise(() => { });
+            await new Promise(() => {});
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >
@@ -110,7 +110,7 @@ function AreYouReady() {
             chooseType(questionType as QuestionType);
             clearManualId();
             setReady(true);
-            await new Promise(() => { });
+            await new Promise(() => {});
           }}
           className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
         >

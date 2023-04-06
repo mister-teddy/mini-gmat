@@ -10,8 +10,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
   large?: boolean;
   loading?: boolean;
   onClick?:
-  | React.MouseEventHandler<HTMLElement>
-  | ((e: React.MouseEvent<HTMLElement>) => Promise<void>);
+    | React.MouseEventHandler<HTMLElement>
+    | ((e: React.MouseEvent<HTMLElement>) => Promise<void>);
 }
 
 const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(
@@ -34,15 +34,16 @@ const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(
     return (
       <animated.button
         type="button"
-        className={`min-w-0 border border-secondary backdrop-blur rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${large ? `text-xl font-bold` : ""
-          } ${className}`}
+        className={`min-w-0 border border-secondary backdrop-blur rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${
+          large ? `text-xl font-bold` : ""
+        } ${className}`}
         style={{
           background:
             loading || clickLoading
               ? angle.to(
-                (a) =>
-                  `linear-gradient(${a}deg, var(--primary), var(--secondary))`
-              )
+                  (a) =>
+                    `linear-gradient(${a}deg, var(--primary), var(--secondary))`
+                )
               : "",
           ...(style ?? {}),
           color: loading || clickLoading ? `var(--primary-text)` : undefined,

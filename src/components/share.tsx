@@ -26,10 +26,10 @@ export const ShareButton: FC = () => {
       description: shareDescription,
     });
     await openShareSheet({
-      type: 'link',
+      type: "link",
       data: {
-        link
-      }
+        link,
+      },
     });
   };
   return (
