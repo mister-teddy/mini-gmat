@@ -33,18 +33,13 @@ export function localStorageEffect<T>(key: string) {
         setSelf(savedData);
       } catch (error) {
         console.log("Failed to load cached data for key: " + key);
-      } finally {
-        localStorage.removeItem(key);
       }
     }
 
     onSet((newValue, _, isReset) => {
       isReset
         ? localStorage.removeItem(key)
-        : localStorage.setItem(
-          key,
-          JSON.stringify(newValue)
-        );
+        : localStorage.setItem(key, JSON.stringify(newValue));
     });
   }) as AtomEffect<T>;
 }
