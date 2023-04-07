@@ -10,13 +10,14 @@ export const appInfoState = selector({
 
 export const FONTS = [
   undefined,
-  "Cambria",
-  "Cochin",
-  "Georgia",
-  "Times New Roman",
-  "Bradley Hand",
-  "Noteworthy",
-  "Snell Roundhand",
+  "Cambria, Noto Serif, serif",
+  "Cochin, Droid Serif, serif",
+  "Georgia, Times New Roman, serif",
+  "Bradley Hand, cursive",
+  "Noteworthy, Comic Sans MS, Chalkboard, cursive",
+  "Snell Roundhand, Brush Script MT, Kristen ITC, cursive",
+  "Harrington, Jokerman, Mistral, Papyrus, Curlz MT, fantasy",
+  "Monaco, Menlo, Courier New, monospace"
 ];
 
 export const fontIndexState = atom({

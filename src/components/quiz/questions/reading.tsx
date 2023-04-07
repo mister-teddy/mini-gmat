@@ -36,9 +36,8 @@ const ReadingComprehensionSubQuestion: FC<{
         {question.answers.map((answer, i, items) => (
           <Button
             key={i}
-            className={`px-4 ${
-              selected === i ? "bg-secondary text-secondary-text" : ""
-            }`}
+            className={`px-4 ${selected === i ? "bg-secondary text-secondary-text" : ""
+              }`}
             onClick={() => setSelected(i)}
           >
             <Content content={answer} />
@@ -102,7 +101,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
           ref={(el) => setNavHeight(el ? el.clientHeight : 0)}
           className="absolute bottom-0 left-0 right-0 z-50 backdrop-blur-xl flex justify-center space-x-4 p-4 pt-2"
           style={{
-            paddingBottom: `env(safe-area-inset-bottom, 8px)`,
+            paddingBottom: `max(env(safe-area-inset-bottom, 8px), 8px)`,
           }}
         >
           {finished && (
