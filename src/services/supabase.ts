@@ -5,7 +5,12 @@ import { findAccessToken } from "./zalo";
 
 export const supabase = createClient<Database>(
   config.SUPABASE_URL,
-  config.SUPABASE_PUBLIC_ANON_KEY
+  config.SUPABASE_PUBLIC_ANON_KEY,
+  {
+    db: {
+      schema: "gmat",
+    },
+  }
 );
 
 type FunctionName = "submit-quiz";

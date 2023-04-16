@@ -4,127 +4,101 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json }
-  | Json[];
+  | Json[]
 
 export interface Database {
-  public: {
+  gmat: {
     Tables: {
       gmat_quiz_answers: {
         Row: {
-          answers: string;
-          quiz_id: number;
-        };
+          answers: string | null
+          quiz_id: number | null
+        }
         Insert: {
-          answers: string;
-          quiz_id?: number;
-        };
+          answers?: string | null
+          quiz_id?: number | null
+        }
         Update: {
-          answers?: string;
-          quiz_id?: number;
-        };
-      };
+          answers?: string | null
+          quiz_id?: number | null
+        }
+      }
       gmat_quizzes: {
         Row: {
-          author: string;
-          created_at: string | null;
-          duration: number;
-          id: number;
-          name: string;
-          question_ids: string;
-        };
+          author: string | null
+          created_at: string | null
+          duration: number | null
+          id: number | null
+          name: string | null
+          question_ids: string | null
+        }
         Insert: {
-          author: string;
-          created_at?: string | null;
-          duration: number;
-          id?: number;
-          name: string;
-          question_ids: string;
-        };
+          author?: string | null
+          created_at?: string | null
+          duration?: number | null
+          id?: number | null
+          name?: string | null
+          question_ids?: string | null
+        }
         Update: {
-          author?: string;
-          created_at?: string | null;
-          duration?: number;
-          id?: number;
-          name?: string;
-          question_ids?: string;
-        };
-      };
+          author?: string | null
+          created_at?: string | null
+          duration?: number | null
+          id?: number | null
+          name?: string | null
+          question_ids?: string | null
+        }
+      }
       gmat_submissions: {
         Row: {
-          answers: string;
-          avatar: string | null;
-          created_at: string | null;
-          display_name: string | null;
-          id: number;
-          quiz_id: number;
-          score: number;
-          submitted_at: string | null;
-          taker: string;
-          total_score: number;
-        };
+          answers: string | null
+          avatar: string | null
+          created_at: string | null
+          display_name: string | null
+          id: number | null
+          quiz_id: number | null
+          score: number | null
+          submitted_at: string | null
+          taker: string | null
+          total_score: number | null
+        }
         Insert: {
-          answers: string;
-          avatar?: string | null;
-          created_at?: string | null;
-          display_name?: string | null;
-          id?: number;
-          quiz_id: number;
-          score?: number;
-          submitted_at?: string | null;
-          taker: string;
-          total_score?: number;
-        };
+          answers?: string | null
+          avatar?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: number | null
+          quiz_id?: number | null
+          score?: number | null
+          submitted_at?: string | null
+          taker?: string | null
+          total_score?: number | null
+        }
         Update: {
-          answers?: string;
-          avatar?: string | null;
-          created_at?: string | null;
-          display_name?: string | null;
-          id?: number;
-          quiz_id?: number;
-          score?: number;
-          submitted_at?: string | null;
-          taker?: string;
-          total_score?: number;
-        };
-      };
-      ygg_leaderboard: {
-        Row: {
-          "🍍": number;
-          "💎": number | null;
-          avatar: string | null;
-          created_at: string | null;
-          id: string;
-          name: string;
-        };
-        Insert: {
-          "🍍"?: number;
-          "💎"?: number | null;
-          avatar?: string | null;
-          created_at?: string | null;
-          id: string;
-          name?: string;
-        };
-        Update: {
-          "🍍"?: number;
-          "💎"?: number | null;
-          avatar?: string | null;
-          created_at?: string | null;
-          id?: string;
-          name?: string;
-        };
-      };
-    };
+          answers?: string | null
+          avatar?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: number | null
+          quiz_id?: number | null
+          score?: number | null
+          submitted_at?: string | null
+          taker?: string | null
+          total_score?: number | null
+        }
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
+      [_ in never]: never
+    }
+  }
 }

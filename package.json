@@ -18,7 +18,8 @@
     "start": "zmp start --silent --no-frame",
     "deploy:dev": "zmp deploy --mode=development",
     "deploy": "zmp deploy",
-    "login": "zmp login"
+    "login": "zmp login",
+    "gen-supabase-model": "supabase gen types typescript --project-id przvyntsigxljcvmzyos --schema gmat > src/models/supabase.ts"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",

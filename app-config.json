@@ -13,7 +13,7 @@
       "dark": "#121415"
     },
     "leftButton": "back",
-    "selfControlLoading": true,
+    "selfControlLoading": false,
     "actionBarHidden": true,
     "hideAndroidBottomNavigationBar": true,
     "hideIOSSafeAreaBottom": true,
