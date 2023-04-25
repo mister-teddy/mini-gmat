@@ -31,19 +31,16 @@ function Podium() {
             <Button
               loading={player ? player.taker === user.userInfo.id : false}
               key={index}
-              className={`${
-                [
-                  `scale-110 from-gray-100 to-gray-300 ${
-                    (player ? player.taker === user.userInfo.id : false)
-                      ? ""
-                      : "text-black"
-                  } origin-bottom-right !rounded-bl`,
-                  "scale-125 from-yellow-200 to-yellow-500",
-                  "from-amber-600 to-amber-800 !rounded-br",
-                ][index]
-              } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary ${
-                index === 1 ? "relative z-50" : ""
-              }`}
+              className={`${[
+                `scale-110 from-gray-100 to-gray-300 ${(player ? player.taker === user.userInfo.id : false)
+                  ? ""
+                  : "text-black"
+                } origin-bottom-right !rounded-bl`,
+                "scale-125 from-yellow-200 to-yellow-500",
+                "from-amber-600 to-amber-800 !rounded-br",
+              ][index]
+                } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary ${index === 1 ? "relative z-50" : ""
+                }`}
             >
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
@@ -51,13 +48,12 @@ function Podium() {
                     player?.avatar ??
                     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
                   }
-                  className={`object-cover rounded-full border-4 w-full h-full ${
-                    [
-                      "border-gray-500 bg-gray-600",
-                      "border-yellow-400 bg-yellow-500",
-                      "border-red-800 bg-red-900",
-                    ][index]
-                  }`}
+                  className={`object-cover rounded-full border-4 w-full h-full ${[
+                    "border-gray-500 bg-gray-600",
+                    "border-yellow-400 bg-yellow-500",
+                    "border-red-800 bg-red-900",
+                  ][index]
+                    }`}
                 />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-3/4 text-xl">
                   {["🥈", "🥇", "🥉"][index]}
@@ -118,9 +114,8 @@ function LeaderBoardPage() {
         title: `${user.userInfo.name} invites you to take the "${quizDetail.data.name}" quiz!`,
         thumbnail: user.userInfo.avatar,
         path: `?quiz=${quizDetail.data.id}`,
-        description: `${
-          JSON.parse(quizDetail.data.question_ids).length
-        } questions | ${quizDetail.data.duration} minutes`,
+        description: `${JSON.parse(quizDetail.data.question_ids).length
+          } questions | ${quizDetail.data.duration} minutes`,
       });
       await openShareSheet({
         type: "link",
@@ -148,7 +143,7 @@ function LeaderBoardPage() {
               </a>
             </div>
             <select
-              className="rounded text-black py-1 px-2 text-center mt-2 text-sm"
+              className="rounded text-black py-1 px-2 text-center mt-2 text-sm max-w-[180px]"
               value={selectedQuizId}
               onChange={(e) => setSelectedQuizId(Number(e.target.value))}
             >
