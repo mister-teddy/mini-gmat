@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-// https://add-to-calendar-pro.com // button v1.18.6 //EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Asia/Ho_Chi_Minh
+X-LIC-LOCATION:Asia/Ho_Chi_Minh
+LAST-MODIFIED:20221015T115821Z
+BEGIN:STANDARD
+TZNAME:+07
+TZOFFSETFROM:+0700
+TZOFFSETTO:+0700
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:f8eab271-bf37-4f3d-b0bd-82aa73a6d1c6
+DTSTAMP:20221116T091443Z
+DTSTART;TZID=Asia/Ho_Chi_Minh:20221101T190000
+DTEND;TZID=Asia/Ho_Chi_Minh:20221101T210000
+SUMMARY:Keep calm and study GMAT
+DESCRIPTION:Add this recurring event to your calendar and set alarm for 
+ it\nThêm cái này vào lịch của bạn và nhớ đặt báo thức hằng n
+ gày
+X-ALT-DESC;FMTTYPE=text/html:
+ <!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 3.2//EN"">
+ <HTML><BODY>
+ Add this recurring event to your calendar and set alarm for 
+ it<br>Thêm cái này vào lịch của bạn và nhớ đặt báo thức hằng
+  ngày
+ </BODY></HTML>
+LOCATION:https://zalo.me/app/link/zapps/724237147568902829/
+RRULE:FREQ=DAILY;INTERVAL=1;WKST=MO;COUNT=30
+SEQUENCE:0
+STATUS:CONFIRMED
+CREATED:20221116T091442Z
+LAST-MODIFIED:20221116T091442Z
+END:VEVENT
+END:VCALENDAR

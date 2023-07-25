@@ -31,16 +31,19 @@ function Podium() {
             <Button
               loading={player ? player.taker === user.userInfo.id : false}
               key={index}
-              className={`${[
-                `scale-110 from-gray-100 to-gray-300 ${(player ? player.taker === user.userInfo.id : false)
-                  ? ""
-                  : "text-black"
-                } origin-bottom-right !rounded-bl`,
-                "scale-125 from-yellow-200 to-yellow-500",
-                "from-amber-600 to-amber-800 !rounded-br",
-              ][index]
-                } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary ${index === 1 ? "relative z-50" : ""
-                }`}
+              className={`${
+                [
+                  `scale-110 from-gray-100 to-gray-300 ${
+                    (player ? player.taker === user.userInfo.id : false)
+                      ? ""
+                      : "text-black"
+                  } origin-bottom-right !rounded-bl`,
+                  "scale-125 from-yellow-200 to-yellow-500",
+                  "from-amber-600 to-amber-800 !rounded-br",
+                ][index]
+              } mx-1 origin-bottom flex flex-col justify-center items-center rounded-bl-none rounded-br-none border-none bg-gradient-to-br !p-4 shadow-2xl shadow-primary ${
+                index === 1 ? "relative z-50" : ""
+              }`}
             >
               <div className="relative w-full aspect-square">
                 <LazyLoadImage
@@ -48,22 +51,23 @@ function Podium() {
                     player?.avatar ??
                     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOklEQVQYlWNgwA7+MtwzgBfJhHgXAszE3AwMDA+QIBaG0wAAAABJRU5ErkJggg=="
                   }
-                  className={`object-cover rounded-full border-4 w-full h-full ${[
-                    "border-gray-500 bg-gray-600",
-                    "border-yellow-400 bg-yellow-500",
-                    "border-red-800 bg-red-900",
-                  ][index]
-                    }`}
+                  className={`object-cover rounded-full border-4 w-full h-full ${
+                    [
+                      "border-gray-500 bg-gray-600",
+                      "border-yellow-400 bg-yellow-500",
+                      "border-red-800 bg-red-900",
+                    ][index]
+                  }`}
                 />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-3/4 text-xl">
                   {["🥈", "🥇", "🥉"][index]}
                 </div>
               </div>
-              <h1 className="mt-8 mb-2 font-bold">
+              <h1 className="mt-8 mb-1 font-bold text-sm">
                 {player ? player.display_name : "?"}
               </h1>
               {!!player && (
-                <div className="mb-2 text-sm">
+                <div className="text-xs">
                   {displayScore(player, quizDetail?.data?.duration ?? 30)}
                 </div>
               )}
@@ -71,7 +75,7 @@ function Podium() {
           )
         )}
       </div>
-      <div className="flex-1 w-full space-y-2 overflow-y-auto pb-4">
+      <div className="flex-1 w-full overflow-y-auto pb-4">
         {(leaderboard.data ?? []).slice(3).map((player, index) => (
           <Button
             key={player.id}
@@ -82,13 +86,13 @@ function Podium() {
               <div className="rounded-full shadow-lg shadow-primary flex-none border-2 border-white">
                 <LazyLoadImage
                   src={player.avatar!}
-                  className={`flex-none w-12 h-12 rounded-full shadow object-cover`}
+                  className={`flex-none w-8 h-8 rounded-full shadow object-cover`}
                 />
               </div>
-              <h1 className="whitespace-nowrap overflow-hidden text-ellipsis px-2 text-left">
+              <h1 className="whitespace-nowrap overflow-hidden text-ellipsis px-2 text-left text-sm">
                 {player.display_name}
                 <br />
-                <span className="text-sm">
+                <span className="text-xs">
                   {displayScore(player, quizDetail?.data?.duration ?? 30)}
                 </span>
               </h1>
@@ -114,8 +118,9 @@ function LeaderBoardPage() {
         title: `${user.userInfo.name} invites you to take the "${quizDetail.data.name}" quiz!`,
         thumbnail: user.userInfo.avatar,
         path: `?quiz=${quizDetail.data.id}`,
-        description: `${JSON.parse(quizDetail.data.question_ids).length
-          } questions | ${quizDetail.data.duration} minutes`,
+        description: `${
+          JSON.parse(quizDetail.data.question_ids).length
+        } questions | ${quizDetail.data.duration} minutes`,
       });
       await openShareSheet({
         type: "link",
@@ -129,7 +134,7 @@ function LeaderBoardPage() {
   return (
     <div className="w-full h-full p-8 flex flex-col">
       <div className="flex-none">
-        <div className="flex justify-between items-center w-full mt-8">
+        <div className="flex justify-between items-center w-full">
           <div className="flex flex-col items-center w-full">
             <h1 className="text-[32px]">🏆</h1>
             <div className="flex items-center space-x-4">
@@ -162,17 +167,15 @@ function LeaderBoardPage() {
       </div>
       <Podium />
       {quizDetail && quizDetail.data && (
-        <div className="py-2">
-          <Button large className="w-full" onClick={() => navigate("/test")}>
-            <span className="flex flex-col">
-              <span>📝 Enter</span>
-              <span className="text-sm font-normal">
-                {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
-                {quizDetail.data.duration} minutes
-              </span>
+        <Button large className="w-full" onClick={() => navigate("/test")}>
+          <span className="flex flex-col">
+            <span>📝 Enter</span>
+            <span className="text-sm font-normal">
+              {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
+              {quizDetail.data.duration} minutes
             </span>
-          </Button>
-        </div>
+          </span>
+        </Button>
       )}
     </div>
   );

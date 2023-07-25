@@ -4,8 +4,8 @@ import "add-to-calendar-button/assets/css/atcb.css";
 import Button from "./button";
 import { useRecoilValue } from "recoil";
 import { appInfoState } from "../state/settings";
-import { getSystemInfo } from "zmp-sdk";
-import { openExternal } from "../services/zalo";
+import { getSystemInfo, openOutApp } from "zmp-sdk";
+import config from "../config";
 
 export const AddToCalendar: FC = () => {
   const appInfo = useRecoilValue(appInfoState);
@@ -14,7 +14,9 @@ export const AddToCalendar: FC = () => {
       className="min-w-0 flex-1"
       onClick={(e) => {
         if (getSystemInfo().platform.toLowerCase() === "ios") {
-          return openExternal(`https://tinyurl.com/rv8nu2cp`);
+          return openOutApp({
+            url: config.ICS_URL,
+          });
         }
         const url = appInfo.appUrl;
         const now = new Date();
