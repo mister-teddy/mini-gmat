@@ -8,6 +8,8 @@ export const appInfoState = selector({
   get: () => getAppInfo(),
 });
 
+export const FONT_SIZES = [16, 17, 18, 19, 20, 12, 13, 14, 15];
+
 export const FONTS = [
   undefined,
   "Cambria, Noto Serif, serif",
@@ -17,7 +19,7 @@ export const FONTS = [
   "Noteworthy, Comic Sans MS, Chalkboard, cursive",
   "Snell Roundhand, Brush Script MT, Kristen ITC, cursive",
   "Harrington, Jokerman, Mistral, Papyrus, Curlz MT, fantasy",
-  "Monaco, Menlo, Courier New, monospace"
+  "Monaco, Menlo, Courier New, monospace",
 ];
 
 export const fontIndexState = atom({
@@ -31,6 +33,20 @@ export const fontState = selector({
   get: ({ get }) => {
     const index = get(fontIndexState);
     return FONTS[index % FONTS.length];
+  },
+});
+
+export const fontSizeIndexState = atom({
+  key: "fontSizeIndex",
+  default: 0,
+  effects: [localStorageEffect("MINI_GMAT_FONT_SIZE")],
+});
+
+export const fontSizeState = selector({
+  key: "fontSize",
+  get: ({ get }) => {
+    const index = get(fontSizeIndexState);
+    return FONT_SIZES[index % FONT_SIZES.length] ?? 16;
   },
 });
 

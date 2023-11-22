@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component<{
       return (
         <div className="flex w-full h-full justify-center items-center p-8 text-center">
           {this.props.fallback ??
-            `There has been an error, please contact the organizers to resolve the issue. 🐞`}
+            `🐞 There has been an error, please contact the maintainers to resolve the issue.`}
         </div>
       );
     }

@@ -11,6 +11,7 @@ import { closeLoading } from "zmp-sdk";
 import { AddToCalendar } from "../components/add-to-calendar";
 import Button from "../components/button";
 import { FontSelector } from "../components/font-selector";
+import { FontSizeSelector } from "../components/font-size-selector";
 import { QuizTaker } from "../components/quiz-taker";
 import ZaloMiniApp from "../components/zalo-mini-app";
 import { QuestionType } from "../models/database";
@@ -25,32 +26,32 @@ import { selectedQuizIdState } from "../state/quiz";
 export const questionTypesLabel = {
   DS: (
     <>
-      <span className="text-xl absolute -translate-x-2">🌓</span>
-      <span className="ml-8"> Data Sufficiency</span>
+      <span className="text-xl">🌓</span>
+      <span className="truncate"> Data Sufficiency</span>
     </>
   ),
   PS: (
     <>
-      <span className="text-xl absolute -translate-x-2">🧮</span>
-      <span className="ml-8"> Problem Solving</span>
+      <span className="text-xl">🧮</span>
+      <span className="truncate"> Problem Solving</span>
     </>
   ),
   CR: (
     <>
-      <span className="text-xl absolute -translate-x-2">💡</span>
-      <span className="ml-8"> Critical Reasoning</span>
+      <span className="text-xl">💡</span>
+      <span className="truncate"> Critical Reasoning</span>
     </>
   ),
   SC: (
     <>
-      <span className="text-xl absolute -translate-x-2">✍️</span>
-      <span className="ml-8"> Sentence Correction</span>
+      <span className="text-xl">✍️</span>
+      <span className="truncate"> Sentence Correction</span>
     </>
   ),
   RC: (
     <>
-      <span className="text-xl absolute -translate-x-2">📖</span>
-      <span className="ml-8"> Reading Comprehension</span>
+      <span className="text-xl">📖</span>
+      <span className="truncate"> Reading Comprehension</span>
     </>
   ),
 };
@@ -97,10 +98,10 @@ function AreYouReady() {
             setReady(true);
             await new Promise(() => {});
           }}
-          className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
+          className={`w-full font-bold space-x-3 !justify-start text-lg`}
         >
-          <span className="text-xl absolute -translate-x-2">🛫</span>
-          <span className="ml-8"> Pickup last question</span>
+          <span className="text-xl">🛫</span>
+          <span className="truncate"> Pickup last question</span>
         </Button>
       )}
       {Object.keys(questionTypesLabel).map((questionType) => (
@@ -112,18 +113,19 @@ function AreYouReady() {
             setReady(true);
             await new Promise(() => {});
           }}
-          className={`w-full font-bold whitespace-nowrap !justify-start text-lg`}
+          className={`w-full font-bold space-x-3 !justify-start text-lg`}
         >
           {questionTypesLabel[questionType]}
         </Button>
       ))}
-      <div className="grid grid-cols-4 gap-4 w-full">
+      <div className="grid grid-cols-5 gap-4 w-full [&>button]:p-0">
         <QuizTaker />
         <Button className="min-w-0 flex-1" onClick={() => navigate("/saved")}>
           ✅
         </Button>
         <AddToCalendar />
         <FontSelector />
+        <FontSizeSelector />
       </div>
     </div>
   );

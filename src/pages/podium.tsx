@@ -25,7 +25,7 @@ function Podium() {
 
   return (
     <>
-      <div className="top-3 grid grid-cols-3 justify-evenly mt-20">
+      <div className="max-w-[24rem] self-center top-3 grid grid-cols-3 justify-evenly mt-20">
         {[leaderboard.data[1], leaderboard.data[0], leaderboard.data[2]].map(
           (player, index) => (
             <Button
@@ -136,7 +136,7 @@ function LeaderBoardPage() {
       <div className="flex-none">
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col items-center w-full">
-            <h1 className="text-[32px]">🏆</h1>
+            <h1 className="text-[2rem]">🏆</h1>
             <div className="flex items-center space-x-4">
               {quizDetail && quizDetail.data && (
                 <h2 className="font-bold text-xl text-center">
