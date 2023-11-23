@@ -37,7 +37,9 @@ function Header() {
   const finish = () => {
     setLeaderboardUniqueKey((k) => k + 1);
     setAnswers({});
-    navigate("/quiz");
+    navigate("/quiz", {
+      replace: true,
+    });
   };
 
   useEffect(() => {

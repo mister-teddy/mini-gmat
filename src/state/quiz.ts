@@ -60,7 +60,7 @@ export const leaderboardState = selector({
       .or("score.neq.0,created_at.gt.yesterday")
       .order("score", { ascending: false })
       .order("submitted_at", { ascending: true })
-      .limit(50);
+      .limit(100);
   },
 });
 

@@ -5,13 +5,14 @@ serveWithUser(async (user, req) => {
   // Extract data from the request body
   let { answers, quiz_id } = await req.json();
 
-  const { data: quiz } = await supabase
+  const { data: quiz, ...rest } = await supabase
     .from("gmat_quizzes")
     .select("duration")
     .eq("id", quiz_id)
     .single();
 
   if (!quiz) {
+    console.warn(rest);
     return [404, "This quiz does not exists!"];
   }
 
@@ -94,6 +95,7 @@ serveWithUser(async (user, req) => {
       avatar: user.picture.data.url,
       quiz_id: quiz_id,
       answers: JSON.stringify(answers),
+      created_at: new Date(),
     })
     .select()
     .single();

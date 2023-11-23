@@ -42,6 +42,6 @@ export const serveWithUser = (
       const user = await getUserFromAccessToken(accessToken);
       return callback(user, req);
     } else {
-      return [401, { error: "Please play this mini game inside Zalo!" }];
+      return [401, { error: "Please use this feature inside Zalo!" }];
     }
   });

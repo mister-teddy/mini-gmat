@@ -139,7 +139,7 @@ const HomePage = () => {
   return (
     <div className="flex flex-col items-center w-full h-full p-8 space-y-4">
       <AreYouReady />
-      <small className="absolute bottom-8 whitespace-nowrap space-x-2 opacity-75">
+      <small className="absolute bottom-5 whitespace-nowrap space-x-2 opacity-75">
         A product of the <ZaloMiniApp className="inline" width={96} /> team
       </small>
     </div>
