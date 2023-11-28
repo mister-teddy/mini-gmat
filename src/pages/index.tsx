@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BottomSheet } from "react-spring-bottom-sheet";
 import {
   useRecoilState,
   useRecoilValue,
@@ -7,7 +8,7 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from "recoil";
-import { closeLoading } from "zmp-sdk";
+import { closeApp, closeLoading } from "zmp-sdk";
 import { AddToCalendar } from "../components/add-to-calendar";
 import Button from "../components/button";
 import { FontSelector } from "../components/font-selector";
@@ -15,6 +16,7 @@ import { FontSizeSelector } from "../components/font-size-selector";
 import { QuizTaker } from "../components/quiz-taker";
 import ZaloMiniApp from "../components/zalo-mini-app";
 import { QuestionType } from "../models/database";
+import { databaseState } from "../state/database";
 import {
   currentQuestionState,
   currentQuestionTypeState,
@@ -66,11 +68,13 @@ function AreYouReady() {
   const pickupQuestionId = useRecoilValue(pickupQuestionIdState);
   const setSeletectedQuizId = useSetRecoilState(selectedQuizIdState);
   useEffect(() => {
-    if (currentQuestion.state === "hasValue" && ready) {
-      if (currentType !== currentQuestion.contents.type) {
-        chooseType(currentQuestion.contents.type);
+    if (ready) {
+      if (currentQuestion.state === "hasValue") {
+        if (currentType !== currentQuestion.contents.type) {
+          chooseType(currentQuestion.contents.type);
+        }
+        navigate("/study");
       }
-      navigate("/study");
     }
   }, [ready, currentQuestion]);
   useEffect(() => {
@@ -131,6 +135,33 @@ function AreYouReady() {
   );
 }
 
+const ConnectionCheck = () => {
+  const db = useRecoilValueLoadable(databaseState);
+
+  if (db.state === "hasError") {
+    return (
+      <BottomSheet
+        expandOnContentDrag
+        open
+        onDismiss={() => closeApp()}
+        className="text-center no-safe-top"
+      >
+        <div className="h-full flex flex-col">
+          <h1 className="text-center font-bold text-lg">
+            🛜 Tips: change your Wifi!
+          </h1>
+          <div className="w-full overflow-y-auto p-4">
+            We cannot fetch questions from our database with your current
+            network connection. Please change your network or try again later!
+          </div>
+        </div>
+      </BottomSheet>
+    );
+  }
+
+  return <></>;
+};
+
 const HomePage = () => {
   useEffect(() => {
     closeLoading({});
@@ -139,6 +170,7 @@ const HomePage = () => {
   return (
     <div className="flex flex-col items-center w-full h-full p-8 space-y-4">
       <AreYouReady />
+      <ConnectionCheck />
       <small className="absolute bottom-5 whitespace-nowrap space-x-2 opacity-75">
         A product of the <ZaloMiniApp className="inline" width={96} /> team
       </small>

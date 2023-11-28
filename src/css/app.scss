@@ -18,17 +18,13 @@ body,
   --text: black;
   --primary: black;
   --primary-text: white;
-  --secondary: gray;
-  --secondary-text: white;
 }
 
 .dark {
   --background: black;
   --text: white;
-  --primary: #9134f2;
+  --primary: #323232;
   --primary-text: white;
-  --secondary: #3eabd8;
-  --secondary-text: white;
   --rsbs-bg: var(--background);
   --rsbs-handle-bg: var(--text);
 }
@@ -65,6 +61,15 @@ input {
       overflow: visible;
       white-space: normal;
       text-overflow: clip;
+    }
+  }
+}
+
+.no-safe-top {
+  &[data-rsbs-has-header="false"] [data-rsbs-header] {
+    padding-top: 12px;
+    &::before {
+      top: 8px;
     }
   }
 }

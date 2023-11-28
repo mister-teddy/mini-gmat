@@ -4,7 +4,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useSpring, animated, AnimatedComponent } from "react-spring";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
   large?: boolean;
@@ -14,56 +13,40 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
     | ((e: React.MouseEvent<HTMLElement>) => Promise<void>);
 }
 
-const Button: AnimatedComponent<FunctionComponent<ButtonProps>> = animated(
-  ({ className, large, loading, children, onClick, style, ...props }) => {
-    const [clickLoading, setLoading] = useState(false);
-    const { angle } = useSpring({
-      from: {
-        angle: 0,
-      },
-      to: {
-        angle: 3600,
-      },
-      loop: true,
-      config: {
-        easing: (t: number) => t,
-        duration: 3000,
-      },
-    });
+const Button: FunctionComponent<ButtonProps> = ({
+  className,
+  large,
+  loading,
+  children,
+  onClick,
+  style,
+  ...props
+}) => {
+  const [clickLoading, setLoading] = useState(false);
 
-    return (
-      <animated.button
-        type="button"
-        className={`min-w-0 border border-secondary backdrop-blur rounded-xl leading py-4 px-8 active:bg-secondary active:text-secondary-text flex justify-center items-center ${
-          large ? `text-xl font-bold` : ""
-        } ${className}`}
-        style={{
-          background:
-            loading || clickLoading
-              ? angle.to(
-                  (a) =>
-                    `linear-gradient(${a}deg, var(--primary), var(--secondary))`
-                )
-              : "",
-          ...(style ?? {}),
-          color: loading || clickLoading ? `var(--primary-text)` : undefined,
-        }}
-        onClick={(e) => {
-          if (onClick) {
-            const result = onClick(e);
-            if (result instanceof Promise) {
-              setLoading(true);
-              result.finally(() => setLoading(false));
-            }
+  return (
+    <button
+      type="button"
+      className={`min-w-0 border border-primary backdrop-blur rounded-xl leading py-4 px-8 active:bg-primary active:text-primary-text flex justify-center items-center ${
+        large ? `text-xl font-bold` : ""
+      } ${
+        loading || clickLoading ? `bg-primary text-primary-text` : ""
+      } ${className}`}
+      onClick={(e) => {
+        if (onClick) {
+          const result = onClick(e);
+          if (result instanceof Promise) {
+            setLoading(true);
+            result.finally(() => setLoading(false));
           }
-        }}
-        disabled={loading || clickLoading}
-        {...props}
-      >
-        {children}
-      </animated.button>
-    );
-  }
-);
+        }
+      }}
+      disabled={loading || clickLoading}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
 export default Button;

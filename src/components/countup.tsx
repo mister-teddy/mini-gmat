@@ -35,7 +35,7 @@ function Countup(props: {
         <div key={i} className="flex-1">
           <div
             key={i}
-            className={`border-2 border-secondary font-bold text-xl p-2 ${
+            className={`border-2 border-primary font-bold text-xl p-2 ${
               i > 0 ? "border-l-0" : ""
             } ${i === 0 ? "rounded-tl rounded-bl" : ""} ${
               i === 3 ? "rounded-tr rounded-br" : ""

@@ -36,7 +36,7 @@ const ReadingComprehensionSubQuestion: FC<{
         {question.answers.map((answer, i, items) => (
           <Button
             key={i}
-            className={`px-4 ${selected === i ? "bg-secondary text-secondary-text" : ""
+            className={`px-4 ${selected === i ? "bg-primary text-primary-text" : ""
               }`}
             onClick={() => setSelected(i)}
           >
@@ -106,7 +106,7 @@ const ReadingComprehensionQuestion: FunctionComponent<
         >
           {finished && (
             <Button
-              className="bg-secondary text-secondary-text"
+              className="bg-primary text-primary-text"
               onClick={async () => onAnswer(selected)}
             >
               OK

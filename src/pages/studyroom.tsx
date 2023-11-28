@@ -27,7 +27,7 @@ function Header() {
   const type = useRecoilValue(currentQuestionTypeState);
   return (
     <div className="flex-none w-full left-0 font-bold">
-      <div className="flex space-x-6 items-center text-lg uppercase">
+      <div className="flex space-x-2 items-center text-lg uppercase">
         {questionTypesLabel[type!]}
       </div>
       <div className="flex my-2 justify-between">

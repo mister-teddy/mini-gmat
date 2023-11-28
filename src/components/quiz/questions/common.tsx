@@ -27,7 +27,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
           {question.answers!.map((answer, i, items) => (
             <Button
               key={i}
-              className={`px-3 py-3 min-w-0 ${selected === i ? "bg-secondary text-secondary-text" : ""
+              className={`px-3 py-3 min-w-0 ${selected === i ? "bg-primary text-primary-text" : ""
                 }`}
               onClick={() => setSelected(i)}
             >
@@ -50,7 +50,7 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
           }}
         >
           <Button
-            className={`bg-secondary text-secondary-text ${selected === -1 ? "invisible" : ""
+            className={`bg-primary text-primary-text ${selected === -1 ? "invisible" : ""
               }`}
             onClick={async () => onAnswer(selected)}
           >

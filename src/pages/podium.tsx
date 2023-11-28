@@ -143,9 +143,6 @@ function LeaderBoardPage() {
                   {quizDetail.data.name}
                 </h2>
               )}
-              <a onClick={share}>
-                <span>🏹</span>
-              </a>
             </div>
             <select
               className="rounded text-black py-1 px-2 text-center mt-2 text-sm max-w-[180px]"
@@ -166,17 +163,25 @@ function LeaderBoardPage() {
         </div>
       </div>
       <Podium />
-      {quizDetail && quizDetail.data && (
-        <Button large className="w-full" onClick={() => navigate("/test")}>
-          <span className="flex flex-col">
-            <span>📝 Enter</span>
-            <span className="text-sm font-normal">
-              {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
-              {quizDetail.data.duration} minutes
+      <div className="flex space-x-2">
+        {quizDetail && quizDetail.data && (
+          <Button large className="w-full" onClick={() => navigate("/test")}>
+            <span className="flex flex-col">
+              <span>📝 Enter Quiz</span>
+              <span className="text-sm font-normal">
+                {JSON.parse(quizDetail.data.question_ids).length} questions |{" "}
+                {quizDetail.data.duration} minutes
+              </span>
             </span>
+          </Button>
+        )}
+        <Button className="!px-2 flex-none" large onClick={share}>
+          <span className="flex flex-col">
+            <span>📤</span>
+            <span className="text-sm font-normal">Share</span>
           </span>
         </Button>
-      )}
+      </div>
     </div>
   );
 }

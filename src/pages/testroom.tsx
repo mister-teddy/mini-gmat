@@ -50,7 +50,7 @@ function Header() {
 
   return (
     <div className="w-full flex-none font-bold">
-      <div className="flex space-x-6 items-center text-lg uppercase">
+      <div className="flex space-x-2 items-center text-lg uppercase">
         {quizDetail?.data?.name}
       </div>
       <div className="flex my-2 justify-between">

@@ -8,8 +8,6 @@ module.exports = {
         text: `var(--text)`,
         primary: `var(--primary)`,
         "primary-text": `var(--primary-text)`,
-        secondary: `var(--secondary)`,
-        "secondary-text": `var(--secondary-text)`,
       },
     },
   },
