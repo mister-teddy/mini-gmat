@@ -52,10 +52,7 @@ export const Explanations: FC<{
           className="sticky bottom-0 py-2 px-4 w-full bg-background shadow text-center space-y-2"
         >
           <Content content={`Your answer: <b>${yourAnswer}</b>`} />
-          <Button
-            onClick={onConfirm}
-            className="w-full bg-primary text-primary-text border-none"
-          >
+          <Button onClick={onConfirm} className="w-full">
             Next question
           </Button>
         </div>

@@ -27,8 +27,9 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
           {question.answers!.map((answer, i, items) => (
             <Button
               key={i}
-              className={`px-3 py-3 min-w-0 ${selected === i ? "bg-primary text-primary-text" : ""
-                }`}
+              className={`px-3 py-3 min-w-0 ${
+                selected === i ? "bg-primary text-primary-text" : ""
+              }`}
               onClick={() => setSelected(i)}
             >
               <Content content={answer} />
@@ -43,15 +44,15 @@ const CommonQuestion: FunctionComponent<CommonQuestionProps> = ({
       {noExplanation ? (
         <div
           ref={(el) => setFooterHeight(el ? el.clientHeight : 0)}
-          className={`absolute bottom-0 left-0 right-0 z-50 ${selected === -1 ? "" : "backdrop-blur-xl"
-            } flex justify-center space-x-4 p-4 pt-2`}
+          className={`absolute bottom-0 left-0 right-0 z-50 ${
+            selected === -1 ? "" : "backdrop-blur-xl"
+          } flex justify-center space-x-4 p-4 pt-2`}
           style={{
             paddingBottom: `max(env(safe-area-inset-bottom, 8px), 8px)`,
           }}
         >
           <Button
-            className={`bg-primary text-primary-text ${selected === -1 ? "invisible" : ""
-              }`}
+            className={`${selected === -1 ? "invisible" : ""}`}
             onClick={async () => onAnswer(selected)}
           >
             OK
