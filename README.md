@@ -1,6 +1,6 @@
 # Mini GMAT
 
-Mini GMAT is a Zalo Mini App client for the [GMAT Database](https://github.com/teddyos/gmat-database) project. It is designed to provide users with a wide range of GMAT practice questions to help them prepare for the GMAT exam.
+Mini GMAT is a Zalo Mini App client for the [GMAT Database](https://github.com/mister-teddy/gmat-database) project. It is designed to provide users with a wide range of GMAT practice questions to help them prepare for the GMAT exam.
 
 ## Preview
 
